@@ -1,4 +1,4 @@
-# A Comprehensive Survey of Continual Learning: Theory, Method and Application
+
 
 > **AI는 새로운 지식을 배우면서 과거의 지식을 어떻게 잊지 않을 수 있을까?**  
 > Liyuan Wang, Xingxing Zhang, Hang Su, Jun Zhu의 서베이 논문을 바탕으로 지속학습의 개념, 평가 지표, 정규화 기반 접근법, 리플레이 기반 접근법을 정리했다.
@@ -13,7 +13,7 @@
 
 > 고양이·개 분류 학습 → 자동차·오토바이 분류 학습 → 새·비행기 분류 학습
 
-이때 모델은 새로운 내용을 잘 배우면서도 이전에 배운 고양이와 개를 계속 구분할 수 있어야 한다. 그러나 신경망은 새로운 작업을 학습하면 기존 작업의 성능이 급격히 떨어지는 경우가 많다. 이를 **파국적 망각(Catastrophic Forgetting)**이라고 한다.
+이때 모델은 새로운 내용을 잘 배우면서도 이전에 배운 고양이와 개를 계속 구분할 수 있어야 한다. 그러나 신경망은 새로운 작업을 학습하면 기존 작업의 성능이 급격히 떨어지는 경우가 많다. 이를 **파국적 망각(Catastrophic Forgetting)** 이라고 한다.
 
 따라서 지속학습의 핵심 질문은 다음과 같다.
 
@@ -70,7 +70,7 @@
 | BBCL | 과업 경계가 흐리고 라벨 공간이 일부 겹침 | 미제공 | 현실처럼 과업 전환이 명확하지 않음 |
 | CPT | 사전학습 데이터가 순차적으로 도착 | 불필요 | 지속적으로 사전학습하며 하위 과업 전이를 개선 |
 
-특히 **Class-Incremental Learning(CIL)**은 실제 환경에 가깝지만 어렵다. 모델은 테스트 시점에 “이 입력은 Task 1에서 왔다”는 정보를 받지 못하고, 지금까지 배운 모든 클래스를 동시에 구분해야 하기 때문이다.
+특히 **Class-Incremental Learning(CIL)** 은 실제 환경에 가깝지만 어렵다. 모델은 테스트 시점에 “이 입력은 Task 1에서 왔다”는 정보를 받지 못하고, 지금까지 배운 모든 클래스를 동시에 구분해야 하기 때문이다.
 
 ### 2) 모든 평가식의 출발점: $a_{k,j}$
 
@@ -98,7 +98,7 @@ $$a_{k,j}$$
 
 ### 3) 전체 성능: AA와 AIA
 
-현재 모델이 지금까지 배운 모든 과업에서 평균적으로 얼마나 잘하는지는 **Average Accuracy(AA)**로 측정한다.
+현재 모델이 지금까지 배운 모든 과업에서 평균적으로 얼마나 잘하는지는 **Average Accuracy(AA)** 로 측정한다.
 
 $$
 AA_k=\frac{1}{k}\sum_{j=1}^{k}a_{k,j}
@@ -114,7 +114,7 @@ $$
 
 즉, 현재 모델은 지금까지 배운 세 과업에서 평균 약 80.3%의 정확도를 보인다. AA는 **현재 시점의 종합 성적표**다.
 
-학습 과정 전체의 성능까지 보고 싶다면 **Average Incremental Accuracy(AIA)**를 사용한다.
+학습 과정 전체의 성능까지 보고 싶다면 **Average Incremental Accuracy(AIA)** 를 사용한다.
 
 $$
 AIA_k=\frac{1}{k}\sum_{i=1}^{k}AA_i
@@ -140,41 +140,23 @@ AA가 현재 성적표라면 AIA는 **지금까지의 누적 평균 성적**에 
 
 ### 4) 기억 안정성: FM과 BWT
 
-과거 과업을 얼마나 잊었는지는 **Forgetting Measure(FM)**로 측정할 수 있다. 먼저 과업 $j$의 망각량은 과거 최고 성능과 현재 성능의 차이다.
+과거 과업을 얼마나 잊었는지는 **Forgetting Measure(FM)** 로 측정할 수 있다. 먼저 과업 $j$의 망각량은 과거 최고 성능과 현재 성능의 차이다.
 
-$$
-f_{j,k}
-=
-\max_{i\in\{1,\ldots,k-1\}}
-(a_{i,j}-a_{k,j})
-$$
+$$f_{j,k}=\max_{i\in\{1,\ldots,k-1\}}(a_{i,j}-a_{k,j})$$
 
 그리고 이전 과업들의 망각량을 평균 낸다.
 
-$$
-FM_k
-=
-\frac{1}{k-1}
-\sum_{j=1}^{k-1}f_{j,k}
-$$
+$$FM_k=\frac{1}{k-1}\sum_{j=1}^{k-1}f_{j,k}$$
 
 예시에서 Task 1은 $0.90-0.75=0.15$, Task 2는 $0.88-0.80=0.08$만큼 하락했다.
 
-$$
-FM_3=\frac{0.15+0.08}{2}=0.115
-$$
+$$FM_3=\frac{0.15+0.08}{2}=0.115$$
 
 과거 과업에서 평균 11.5%포인트의 망각이 발생한 것이다. **FM은 낮을수록 좋다.**
 
-**Backward Transfer(BWT)**는 새로운 과업 학습이 과거 과업에 준 영향을 측정한다.
+**Backward Transfer(BWT)** 는 새로운 과업 학습이 과거 과업에 준 영향을 측정한다.
 
-$$
-BWT_k
-=
-\frac{1}{k-1}
-\sum_{j=1}^{k-1}
-(a_{k,j}-a_{j,j})
-$$
+$$BWT_k=\frac{1}{k-1}\sum_{j=1}^{k-1}(a_{k,j}-a_{j,j})$$
 
 - $BWT<0$: 과거 성능이 하락함
 - $BWT=0$: 과거 성능이 유지됨
@@ -183,17 +165,13 @@ $$
 예시에서는
 
 $$
-BWT_3
-=
-\frac{(0.75-0.90)+(0.80-0.88)}{2}
-=-0.115
-$$
+BWT_3=\frac{(0.75-0.90)+(0.80-0.88)}{2}=-0.115$$
 
 이다. FM은 과거의 **최고 성능**을 기준으로 하고, BWT는 각 과업을 **처음 학습한 직후의 성능**을 기준으로 한다는 차이가 있다.
 
 ### 5) 학습 가소성: IM과 FWT
 
-과거 지식을 보존하는 데만 집중하면 새 과업을 제대로 배우지 못할 수 있다. 이를 평가하는 지표가 **Intransience Measure(IM)**다.
+과거 지식을 보존하는 데만 집중하면 새 과업을 제대로 배우지 못할 수 있다. 이를 평가하는 지표가 **Intransience Measure(IM)** 다.
 
 $$
 IM_k=a_k^*-a_{k,k}
@@ -210,15 +188,9 @@ $$
 
 이다. 공동학습보다 새 과업을 5%포인트 덜 배웠다는 의미다. **IM은 낮을수록 좋다.**
 
-**Forward Transfer(FWT)**는 과거 학습 경험이 새 과업 학습에 얼마나 도움을 주었는지를 평가한다.
+**Forward Transfer(FWT)** 는 과거 학습 경험이 새 과업 학습에 얼마나 도움을 주었는지를 평가한다.
 
-$$
-FWT_k
-=
-\frac{1}{k-1}
-\sum_{j=2}^{k}
-(a_{j,j}-\tilde a_j)
-$$
+$$FWT_k=\frac{1}{k-1}\sum_{j=2}^{k}(a_{j,j}-\tilde a_j)$$
 
 여기서 $\tilde a_j$는 무작위로 초기화한 모델을 Task $j$만으로 따로 학습했을 때의 성능이다.
 
@@ -276,7 +248,7 @@ $$\mathcal{R}_{\text{old}}(\theta)=\sum_i F_i(\theta_i-\theta_i^*)^2$$
 - $\theta_i$: 현재 학습 중인 파라미터
 - $F_i$: 이전 과업에서 해당 파라미터의 중요도
 
-대표적인 방법이 **EWC(Elastic Weight Consolidation)**다.
+대표적인 방법이 **EWC(Elastic Weight Consolidation)** 다.
 
 $$\mathcal{L}_{\mathrm{EWC}}(\theta)=\mathcal{L}_{\text{new}}(\theta)+\frac{\lambda}{2}\sum_i F_i(\theta_i-\theta_i^*)^2$$
 
@@ -312,11 +284,11 @@ $$f_{\theta_{\text{new}}}(x)\approx f_{\theta_{\text{old}}}(x)$$
 
 즉, **파라미터가 바뀌는 것은 허용하지만 과거 모델이 하던 행동은 유지하라**는 방식이다.
 
-대표적인 방법이 **LwF(Learning without Forgetting)**이며, 이전 모델을 teacher, 현재 모델을 student로 두고 지식증류를 사용한다.
+대표적인 방법이 **LwF(Learning without Forgetting)** 이며, 이전 모델을 teacher, 현재 모델을 student로 두고 지식증류를 사용한다.
 
 $$\mathcal{L}=\mathcal{L}_{\text{new}}+\alpha\mathcal{L}_{\text{KD}}$$
 
-$$\mathcal{L}_{\text{KD}}=T^2D_{\mathrm{KL}}\left(\operatorname{softmax}\left(\frac{z_{\text{old}}}{T}\right)\middle\|\operatorname{softmax}\left(\frac{z_{\text{new}}}{T}\right)\right)$$
+$$\mathcal{L}_{\text{KD}}=T^2D_{\mathrm{KL}}\left(\mathrm{softmax}\left(\frac{z_{\text{old}}}{T}\right)\middle\|\mathrm{softmax}\left(\frac{z_{\text{new}}}{T}\right)\right)$$
 
 - $z_{\text{old}}$: 과거 모델의 logits
 - $z_{\text{new}}$: 현재 모델의 logits
