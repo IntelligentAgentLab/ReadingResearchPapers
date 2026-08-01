@@ -128,11 +128,9 @@ $$
 
 베이지안 네트워크의 핵심은 복잡한 결합확률을 여러 개의 작은 조건부확률로 나누는 것이다.
 
-$$P(X_1,\ldots,X_n)
-=
-\prod_{i=1}^{n}P\bigl(X_i\mid \operatorname{Pa}(X_i)\bigr)$$
+$$P(X_1,\ldots,X_n)=\prod_{i=1}^{n}P\bigl(X_i\mid \mathrm{Pa}(X_i)\bigr)$$
 
-여기서 $\operatorname{Pa}(X_i)$는 $X_i$의 부모 변수 집합이다.
+여기서 $\mathrm{Pa}(X_i)$는 $X_i$의 부모 변수 집합이다.
 
 앞의 연쇄 구조에서는 다음과 같이 분해된다.
 
