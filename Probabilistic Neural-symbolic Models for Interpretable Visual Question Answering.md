@@ -318,9 +318,9 @@ i와 독립인 건 **가정**이고, 대가가 있다. 논문 각주 1이 이걸
 
 ### 1) 1단계: Question Coding
 
-$$\sum_m \log p(x_m) \geq \sum_m \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] = U_{qc} \tag{1}$$
+$$\sum_m \log p(x_m) \geq \sum_m \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] = U_{qc}$$
 
-$$\mathcal{L} \approx \sum_{n=1}^{N} \alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n) \tag{3}$$
+$$\mathcal{L} \approx \sum_{n=1}^{N} \alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)$$
 
 Eq.(1)은 무라벨 질문에 대한 ELBO이고 Eq.(3)은 소수 라벨 쌍에 대한 항이다. Algorithm 1은 **두 항을 함께** 최적화한다고 명시한다.
 
@@ -346,7 +346,7 @@ Eq.(1)은 무라벨 질문에 대한 ELBO이고 Eq.(3)은 소수 라벨 쌍에 �
 
 1단계가 끝나면 q_φ(z|x)가 질문을 프로그램으로 바꿔주지만, **θ_Z는 아직 난수**다. `find[green]`이라는 심볼은 있는데 그에 해당하는 CNN이 초록색과 아무 관계가 없다.
 
-$$\max_{\theta_Z} \sum_{m=1}^{M} \mathbb{E}_{z \sim q(z|x_m)}\big[\log p_{\theta_z}(a_m \mid z, i_m)\big] \tag{5}$$
+$$\max_{\theta_Z} \sum_{m=1}^{M} \mathbb{E}_{z \sim q(z|x_m)}\big[\log p_{\theta_z}(a_m \mid z, i_m)\big]$$
 
 > The goal is to find a good initialization of the module parameters, say θ_find[green] that **binds the execution to the computations expected for the symbol** `find[green]`
 

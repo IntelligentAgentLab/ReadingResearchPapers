@@ -270,11 +270,7 @@ $$
 
 따라서 파라미터마다 중요도 $F_i$를 계산하고, 중요한 파라미터일수록 변경에 더 큰 벌점을 준다.
 
-$$
-\mathcal{R}_{\text{old}}(\theta)
-=
-\sum_i F_i(\theta_i-\theta_i^*)^2
-$$
+$$\mathcal{R}_{\text{old}}(\theta)=\sum_i F_i(\theta_i-\theta_i^*)^2$$
 
 - $\theta_i^*$: 이전 과업 학습 직후의 파라미터
 - $\theta_i$: 현재 학습 중인 파라미터
@@ -282,29 +278,11 @@ $$
 
 대표적인 방법이 **EWC(Elastic Weight Consolidation)**다.
 
-$$
-\mathcal{L}_{\mathrm{EWC}}(\theta)
-=
-\mathcal{L}_{\text{new}}(\theta)
-+
-\frac{\lambda}{2}
-\sum_i
-F_i(\theta_i-\theta_i^*)^2
-$$
+$$\mathcal{L}_{\mathrm{EWC}}(\theta)=\mathcal{L}_{\text{new}}(\theta)+\frac{\lambda}{2}\sum_i F_i(\theta_i-\theta_i^*)^2$$
 
 EWC는 보통 Fisher Information Matrix의 대각성분으로 중요도를 근사한다.
 
-$$
-F_i
-\approx
-\mathbb{E}_{(x,y)}
-\left[
-\left(
-\frac{\partial\log p(y\mid x,\theta)}
-{\partial\theta_i}
-\right)^2
-\right]
-$$
+$$F_i\approx\mathbb{E}_{(x,y)}\left[\left(\frac{\partial\log p(y\mid x,\theta)}{\partial\theta_i}\right)^2\right]$$
 
 직관적으로는 **특정 파라미터를 조금 바꿨을 때 모델의 예측 확률이 크게 변한다면 그 파라미터는 중요하다**고 판단하는 것이다.
 
@@ -330,34 +308,15 @@ $$
 
 가중치 정규화가 과거 모델의 **파라미터**를 따라가게 한다면, 함수 정규화는 과거 모델의 **출력이나 중간 특징**을 따라가게 한다.
 
-$$
-f_{\theta_{\text{new}}}(x)
-\approx
-f_{\theta_{\text{old}}}(x)
-$$
+$$f_{\theta_{\text{new}}}(x)\approx f_{\theta_{\text{old}}}(x)$$
 
 즉, **파라미터가 바뀌는 것은 허용하지만 과거 모델이 하던 행동은 유지하라**는 방식이다.
 
 대표적인 방법이 **LwF(Learning without Forgetting)**이며, 이전 모델을 teacher, 현재 모델을 student로 두고 지식증류를 사용한다.
 
-$$
-\mathcal{L}
-=
-\mathcal{L}_{\text{new}}
-+
-\alpha\mathcal{L}_{\text{KD}}
-$$
+$$\mathcal{L}=\mathcal{L}_{\text{new}}+\alpha\mathcal{L}_{\text{KD}}$$
 
-$$
-\mathcal{L}_{\text{KD}}
-=
-T^2D_{\mathrm{KL}}
-\left(
-\operatorname{softmax}\left(\frac{z_{\text{old}}}{T}\right)
-\middle\|
-\operatorname{softmax}\left(\frac{z_{\text{new}}}{T}\right)
-\right)
-$$
+$$\mathcal{L}_{\text{KD}}=T^2D_{\mathrm{KL}}\left(\operatorname{softmax}\left(\frac{z_{\text{old}}}{T}\right)\middle\|\operatorname{softmax}\left(\frac{z_{\text{new}}}{T}\right)\right)$$
 
 - $z_{\text{old}}$: 과거 모델의 logits
 - $z_{\text{new}}$: 현재 모델의 logits
@@ -425,14 +384,8 @@ loss = task_loss + 0.5 * ewc_lambda * ewc_penalty(
 
 현재 과업 데이터를 $D_t$, 과거 데이터에서 보존하거나 복원한 리플레이 데이터를 $M$이라고 하자.
 
-$$
-\mathcal{L}_{\text{total}}
-=
-\mathcal{L}_{\text{current}}(D_t)
-+
-\lambda_{\text{rep}}
-\mathcal{L}_{\text{replay}}(M)
-$$
+$$\mathcal{L}_{\text{total}}=\mathcal{L}_{\text{current}}(D_t)+\lambda_{\text{rep}}
+\mathcal{L}_{\text{replay}}(M)$$
 
 현재 데이터가 자동차·오토바이이고 과거 데이터가 고양이·개라면, 하나의 학습 미니배치는 다음과 같이 구성된다.
 
@@ -444,9 +397,7 @@ $$
 
 경험 리플레이는 과거 학습 데이터 일부를 작은 **메모리 버퍼**에 저장한다.
 
-$$
-M_t=\{(x_i,y_i)\}_{i=1}^{m}
-$$
+$$M_t=\{(x_i,y_i)\}_{i=1}^{m}$$
 
 전체 데이터가 10만 개인데 버퍼가 2,000개라면, 어떤 2,000개를 남길지가 중요하다. 논문은 경험 리플레이의 핵심 과제를 다음 두 가지로 정리한다.
 
@@ -462,12 +413,7 @@ $$
 
 Mean-of-Feature에서 클래스 $c$의 특징 평균은 다음과 같다.
 
-$$
-\mu_c
-=
-\frac{1}{N_c}
-\sum_{i:y_i=c}f_\theta(x_i)
-$$
+$$\mu_c=\frac{1}{N_c}\sum_{i:y_i=c}f_\theta(x_i)$$
 
 그리고 $\|f_\theta(x_i)-\mu_c\|$가 작은 샘플을 전형적인 사례로 저장할 수 있다.
 
@@ -481,30 +427,18 @@ $$
 
 현재 데이터의 gradient를 $g$, 과거 과업 $j$의 메모리 gradient를 $g_j$라고 하자.
 
-$$
-g=\nabla_\theta\mathcal{L}(D_t),
-\qquad
-g_j=\nabla_\theta\mathcal{L}(M_j)
-$$
+$$g=\nabla_\theta\mathcal{L}(D_t),\qquad g_j=\nabla_\theta\mathcal{L}(M_j)$$
 
 GEM은 과거 손실을 증가시키지 않도록 다음 조건을 요구한다.
 
-$$
-g^\top g_j\ge0
-$$
+$$g^\top g_j\ge0$$
 
 내적이 음수이면 현재 업데이트와 과거 과업의 gradient가 충돌한다. GEM은 현재 gradient를 과거 과업을 훼손하지 않는 방향으로 투영한다.
 
 A-GEM은 과거 과업마다 별도의 제약을 계산하지 않고 전체 메모리에서 하나의 기준 gradient를 만든다. 현재 gradient와 기준 gradient가 충돌할 때 다음처럼 투영할 수 있다.
 
-$$
-\tilde g
-=
-g-
-\frac{g^\top g_{\mathrm{ref}}}
-{g_{\mathrm{ref}}^\top g_{\mathrm{ref}}}
-g_{\mathrm{ref}}
-$$
+$$\tilde g=g-\frac{g^\top g_{\mathrm{ref}}}{g_{\mathrm{ref}}^\top g_{\mathrm{ref}}}
+g_{\mathrm{ref}}$$
 
 GEM보다 계산은 간단하지만 개별 과업을 세밀하게 보호하는 능력은 약해질 수 있다.
 
@@ -515,13 +449,7 @@ GEM보다 계산은 간단하지만 개별 과업을 세밀하게 보호하는 �
 
 MIR의 간섭 점수는 개념적으로 다음처럼 표현할 수 있다.
 
-$$
-s_i
-=
-\mathcal{L}(x_i,y_i;\theta')
--
-\mathcal{L}(x_i,y_i;\theta)
-$$
+$$s_i=\mathcal{L}(x_i,y_i;\theta')-\mathcal{L}(x_i,y_i;\theta)$$
 
 현재 데이터로 가상 업데이트한 파라미터 $\theta'$에서 손실이 크게 증가하는 과거 샘플일수록 망각 위험이 크므로 먼저 재생한다.
 
@@ -529,29 +457,15 @@ $$
 
 DER는 과거 데이터와 함께 그 당시 모델의 logits를 저장한다.
 
-$$
-M=\{(x_i,y_i,z_i^{\text{old}})\}
-$$
+$$M=\{(x_i,y_i,z_i^{\text{old}})\}$$
 
 현재 모델의 logits가 저장된 과거 logits와 비슷하도록 다음 손실을 사용한다.
 
-$$
-\mathcal{L}_{\text{logit}}
-=
-\|z_i^{\text{new}}-z_i^{\text{old}}\|_2^2
-$$
+$$\mathcal{L}_{\text{logit}}=\|z_i^{\text{new}}-z_i^{\text{old}}\|_2^2$$
 
 DER++는 여기에 과거 샘플의 정답 라벨에 대한 분류 손실도 추가한다.
 
-$$
-\mathcal{L}_{\text{DER++}}
-=
-\mathcal{L}_{\text{current}}
-+
-\alpha\|z^{\text{new}}-z^{\text{old}}\|_2^2
-+
-\beta\mathcal{L}_{\text{CE}}(x_{\text{old}},y_{\text{old}})
-$$
+$$\mathcal{L}_{\text{DER++}}=\mathcal{L}_{\text{current}}+\alpha\|z^{\text{new}}-z^{\text{old}}\|_2^2+\beta\mathcal{L}_{\text{CE}}(x_{\text{old}},y_{\text{old}})$$
 
 과거의 정답뿐 아니라 과거 모델이 클래스들을 어떤 관계로 보았는지까지 보존한다는 점이 핵심이다.
 
@@ -572,21 +486,11 @@ $$
 
 생성 리플레이는 과거 원본 데이터를 저장하지 않고 생성모델이 과거와 유사한 데이터를 만들게 한다.
 
-$$
-\hat p_{\text{old}}(x,y)
-\approx
-p_{\text{old}}(x,y)
-$$
+$$\hat p_{\text{old}}(x,y)\approx p_{\text{old}}(x,y)$$
 
 과거 생성모델에서 샘플을 뽑아 현재 실제 데이터와 함께 학습한다.
 
-$$
-\widetilde D_{\text{old}}
-\sim
-G_{\text{old}},
-\qquad
-D_t\cup\widetilde D_{\text{old}}
-$$
+$$\widetilde D_{\text{old}}\sim G_{\text{old}},\qquad D_t\cup\widetilde D_{\text{old}}$$
 
 장점은 원본 데이터 저장 부담을 줄일 수 있다는 점이다. 하지만 분류 모델뿐 아니라 **생성모델 자체도 파국적 망각을 겪는다.** 생성 품질이 낮으면 과거 분포를 잘못 복원하며, 생성모델을 계속 유지하는 데 상당한 연산 자원이 필요하다.
 
@@ -599,11 +503,7 @@ $$
 
 특징 리플레이는 원본 데이터 $x$ 대신 신경망 중간층의 특징 $z$를 저장한다.
 
-$$
-f_\theta(x)=h_\phi(g_\psi(x)),
-\qquad
-z=g_\psi(x)
-$$
+$$f_\theta(x)=h_\phi(g_\psi(x)),\qquad z=g_\psi(x)$$
 
 - $g_\psi$: feature extractor
 - $h_\phi$: classifier
@@ -611,30 +511,17 @@ $$
 
 메모리는 다음과 같이 구성할 수 있다.
 
-$$
-M_z=\{(z_i,y_i)\}
-$$
+$$M_z=\{(z_i,y_i)\}$$
 
 또는 개별 특징 대신 클래스 prototype이나 평균·공분산 같은 통계량을 저장할 수 있다.
 
-$$
-\mu_c
-=
-\frac{1}{N_c}
-\sum_{i:y_i=c}z_i,
-\qquad
-z_c\sim\mathcal{N}(\mu_c,\Sigma_c)
-$$
+$$\mu_c=\frac{1}{N_c}\sum_{i:y_i=c}z_i,\qquad z_c\sim\mathcal{N}(\mu_c,\Sigma_c)$$
 
 원본보다 특징 벡터가 작다면 저장 효율성이 좋아지고, 원본 데이터를 직접 보존하지 않아 개인정보 위험도 일부 낮아진다.
 
 하지만 feature extractor가 계속 업데이트되면 같은 입력도 다른 특징을 만든다.
 
-$$
-g_{\psi_2}(x)
-\neq
-g_{\psi_1}(x)
-$$
+$$g_{\psi_2}(x)\neq g_{\psi_1}(x)$$
 
 과거에 저장한 특징이 현재 특징공간과 맞지 않게 되는 **Representation Shift**가 특징 리플레이의 핵심 난점이다.
 

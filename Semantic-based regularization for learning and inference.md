@@ -99,21 +99,21 @@ $$
 
 $$
 \begin{aligned}
-\operatorname{NOT}(a)&=1-a\\
-\operatorname{AND}(a,b)&=\min(a,b)\\
-\operatorname{OR}(a,b)&=\max(a,b)
+\mathrm{NOT}(a)&=1-a\\
+\mathrm{AND}(a,b)&=\min(a,b)\\
+\mathrm{OR}(a,b)&=\max(a,b)
 \end{aligned}
 $$
 
 전칭 한정자와 존재 한정자는 각각 다음과 같이 집계한다.
 
 $$
-\operatorname{FORALL}(a_1,\ldots,a_n)
+\mathrm{FORALL}(a_1,\ldots,a_n)
 =\frac{1}{n}\sum_{i=1}^{n}a_i
 $$
 
 $$
-\operatorname{EXISTS}(a_1,\ldots,a_n)
+\mathrm{EXISTS}(a_1,\ldots,a_n)
 =\max_i a_i
 $$
 
@@ -222,7 +222,7 @@ $$
 원 논문은 각 category를 별도의 퍼지 술어로 취급하므로, 출력이 반드시 합계 1인 softmax일 필요는 없다. 단일 라벨 문제라면 다음과 같이 “정확히 하나의 category만 참”이라는 제약을 논리식으로 추가할 수 있다.
 
 $$
-\forall x\quad \operatorname{ExactlyOne}
+\forall x\quad \mathrm{ExactlyOne}
 \{C_1(x),\ldots,C_K(x)\}
 $$
 
@@ -321,7 +321,7 @@ L_{\text{cite}}
 \sum_{(x,y)\in E}
 \sum_{c=1}^{K}
 \left[
-1-\operatorname{Eq}_{\text{fuzzy}}(p_c(x),p_c(y))
+1-\mathrm{Eq}_{\text{fuzzy}}(p_c(x),p_c(y))
 \right]
 $$
 

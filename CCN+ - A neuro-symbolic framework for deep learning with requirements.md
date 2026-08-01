@@ -128,9 +128,9 @@ AND는 "가장 약한 고리"가 결정하니 min이 맞다. 이 값이 θ보다
 
 몸통 만족도를 두 개의 경계로 바꾼다. 양의 머리 규칙은 A를 위로 밀고, 음의 머리 규칙은 A를 아래로 누른다. 그리고 신경망 출력을 그 사이로 잘라 넣는다.
 
-$$\text{ReqL}_A = \min\big(\max(h_A,\, b^+_A),\, b^-_A\big) \tag{11}$$
+$$\text{ReqL}_A=\min\big(\max(h_A,b^+_A),b^-_A\big)$$
 
-$$b^+_A = \max_{r \in \mathcal{r}^+_A}\Big(\min_{l\in\text{body}(r)} \text{ReqL}_l\Big), \qquad b^-_A = 1 - \max_{r \in \mathcal{r}^-_A}\Big(\min_{l\in\text{body}(r)} \text{ReqL}_l\Big) \tag{12}$$
+$$b^+_A=\max_{r\in\mathcal{r}^+_A}\Big(\min_{l\in\text{body}(r)}\text{ReqL}_l\Big),\qquad b^-_A = 1 - \max_{r \in \mathcal{r}^-_A}\Big(\min_{l\in\text{body}(r)} \text{ReqL}_l\Big)$$
 
 이 클리핑이 강제의 전부다. $[b^+_A, b^-_A]$는 "A가 요구사항을 어기지 않으려면 있어야 할 값 구간(coherence interval)"이고, `h_A`는 그 안에서만 자유롭다. 어떤 양의 머리 규칙 몸통이 참이면 $b^+_A$가 θ 위로 올라가 A를 밑에서 밀어올리고, 어떤 음의 머리 규칙 몸통이 참이면 $b^-_A$가 θ 아래로 내려가 A를 위에서 눌러준다. 몸통이 안 참이면 양의 경계는 θ 아래, 음의 경계는 θ 위에 머물러 클리핑이 `h_A`를 건드리지 않는다. 즉 클리핑 구간이 **implication의 진리표와 정확히 같은 타이밍에** 좁아지거나 열린다.
 
@@ -213,7 +213,7 @@ min/max의 gradient는 "활성화된 경로"로만 흐른다. 예를 들어 `Req
 
 그냥 ReqL에 표준 이진 교차엔트로피를 쓰면 gradient가 **엉뚱한 라벨을 밀어올리는** 문제가 생긴다(정답이 0인 라벨의 출력을 키우도록 학습해버림). 그래서 ReqLoss는 정답(ground truth)을 경계 계산에 반영해 gradient가 올바른 라벨로만 흐르게 만든다.
 
-$$\text{ReqLoss}_A = -y_A \log(\text{ReqL}^p_A) - (1-y_A)\log(1-\text{ReqL}^n_A) \tag{18}$$
+$$\text{ReqLoss}_A = -y_A \log(\text{ReqL}^p_A) - (1-y_A)\log(1-\text{ReqL}^n_A)$$
 
 여기서 $\text{ReqL}^p_A, \text{ReqL}^n_A$는 $b^+, b^-$ 자리에 "정답에 의해 실제로 만족되는 몸통만" 반영해 만든 값이다. Theorem 3이 이를 보장한다: 정답이 1인 라벨은 $\partial\text{ReqLoss}/\partial h_A \le 0$(출력 키우도록), 정답이 0이면 $\ge 0$(줄이도록).
 

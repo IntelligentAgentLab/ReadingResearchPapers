@@ -71,13 +71,13 @@ $$[m^r, C^{(r)}] \triangleq [m,\; m-1,\; m-2,\; \ldots,\; m-r+1,\; C^{(r)}]$$
 
 논문은 boolean logic에 대해 다음 메타 규칙을 사용한다.
 
-$$\hat{p}(x_1, x_2, \cdots, x_r) \leftarrow \texttt{expression}(x_1, x_2, \cdots, x_r) \tag{1}$$
+$$\hat{p}(x_1, x_2, \cdots, x_r) \leftarrow \texttt{expression}(x_1, x_2, \cdots, x_r)$$
 
 여기서 `expression`은 모든 변수에 걸친 술어들로 이루어진 임의의 boolean 식이고, $\hat{p}$는 결론 술어다. 예를 들어 `Moveable(x) ← ¬IsGround(x) ∧ Clear(x)`가 이 메타 규칙의 인스턴스다.
 
 신경망 구현은 텐서 표현을 변환하는 `Permute` 연산과 그 뒤에 오는 MLP다.
 
-$$\hat{p}(u_{i_1}, \cdots, u_{i_r}) = \sigma\Big(\text{MLP}\big(p_{1,1}(u_{i_1},\ldots,u_{i_r}), \cdots, p_{k,r!}(u_{i_1},\ldots,u_{i_r})\big);\, \theta\Big) \tag{2}$$
+$$\hat{p}(u_{i_1}, \cdots, u_{i_r}) = \sigma\Big(\text{MLP}\big(p_{1,1}(u_{i_1},\ldots,u_{i_r}), \cdots, p_{k,r!}(u_{i_1},\ldots,u_{i_r})\big);\, \theta\Big)$$
 
 여기서 $\sigma$는 sigmoid, $\theta$는 학습 가능한 파라미터다. **서로 배타적인 모든 인덱스 집합에 대해 같은 MLP가 적용된다.** 따라서 $\theta$의 크기는 객체 수 $m$과 무관하다.
 
@@ -91,7 +91,7 @@ $$\hat{p}(u_{i_1}, \cdots, u_{i_r}) = \sigma\Big(\text{MLP}\big(p_{1,1}(u_{i_1},
 
 양화사에는 두 가지 메타 규칙이 있다. 첫 번째는 **확장(expansion)**이다.
 
-$$\forall x_{r+1}\; q(x_1, x_2, \cdots, x_r, x_{r+1}) \leftarrow p(x_1, x_2, \cdots, x_r) \tag{3}$$
+$$\forall x_{r+1}\; q(x_1, x_2, \cdots, x_r, x_{r+1}) \leftarrow p(x_1, x_2, \cdots, x_r)$$
 
 새로운 변수 $x_{r+1}$을 도입해 술어 $p$로부터 새 술어 $q$를 만든다. 이게 왜 필요한가? 다음 규칙을 보자.
 
@@ -111,7 +111,7 @@ ValidMove(x,y) ← Moveable(x) ∧ Placeable(y)
 
 두 번째는 **축소(reduction)**다.
 
-$$q(x_1, x_2, \cdots, x_r) \leftarrow \forall x_{r+1}\; p(x_1, x_2, \cdots, x_r, x_{r+1}) \tag{4}$$
+$$q(x_1, x_2, \cdots, x_r) \leftarrow \forall x_{r+1}\; p(x_1, x_2, \cdots, x_r, x_{r+1})$$
 
 여기서 $\forall$는 $\exists$로 대체될 수도 있다. 신경망 구현 `Reduce(·)`는 $x_{r+1}$ 차원을 따라 **최댓값($\exists$)과 최솟값($\forall$)을 취해 두 결과 텐서를 쌓는다.** 따라서 출력 채널이 $2C$가 된다. 역시 파라미터가 없다.
 
@@ -143,7 +143,7 @@ $\mathcal{O}_0$이 기본 술어들의 grounding 텐서(전제)이고, 마지막
 
 **Inter-group 계산**은 이전 층의 세로로 이웃한 그룹($r-1$, $r$, $r+1$)을 가져와 확장/축소로 모양을 맞춰 중간 텐서를 만든다.
 
-$$I_i^{(r)} = \text{Concat}\left(\text{Expand}\left(O_{i-1}^{(r-1)}\right),\; O_{i-1}^{(r)},\; \text{Reduce}\left(O_{i-1}^{(r+1)}\right)\right) \tag{5}$$
+$$I_i^{(r)} = \text{Concat}\left(\text{Expand}\left(O_{i-1}^{(r-1)}\right),\; O_{i-1}^{(r)},\; \text{Reduce}\left(O_{i-1}^{(r+1)}\right)\right)$$
 
 연결 후 중간 텐서 $I_i^{(r)}$은 $[m^r, \widetilde{C}_i^{(r)}]$ 모양이며, 새 술어 수는
 
@@ -155,7 +155,7 @@ $$\widetilde{C}_i^{(r)} \triangleq C_{i-1}^{(r-1)} + C_{i-1}^{(r)} + 2C_{i-1}^{(
 
 **Intra-group 계산**은 식 (1)의 neural boolean logic으로 구현된다.
 
-$$O_i^{(r)} = \sigma\left(\text{MLP}\left(\text{Permute}\left(I_i^{(r)}\right);\, \theta_i^{(r)}\right)\right) \tag{6}$$
+$$O_i^{(r)} = \sigma\left(\text{MLP}\left(\text{Permute}\left(I_i^{(r)}\right);\, \theta_i^{(r)}\right)\right)$$
 
 이항 그룹의 경우 구체적으로는 각 객체 쌍 $(x,y)$에 대해
 

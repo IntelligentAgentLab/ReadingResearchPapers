@@ -204,15 +204,11 @@ $$
 
 각 변수의 부모값 조합에 대해 그 변수가 1일 확률을 설정했다.
 
-$$
-P\bigl(X_i=1\mid \operatorname{Pa}(X_i)\bigr)
-$$
+$$P\bigl(X_i=1\mid \mathrm{Pa}(X_i)\bigr)$$
 
 이 확률은 다음 베타분포에서 무작위로 뽑았다.
 
-$$
-\operatorname{Beta}\left(\frac15,\frac15\right)
-$$
+$$\mathrm{Beta}\left(\frac15,\frac15\right)$$
 
 이 분포는 0.5 부근보다 0이나 1에 가까운 값을 상대적으로 자주 만든다. 그 결과 다음과 같이 부모의 값에 따라 자식 변수의 확률이 크게 달라지는 관계가 만들어지기 쉽다.
 
@@ -438,11 +434,7 @@ X2=1 → X3=1
 
 직접 예측은 중간 단계 없이 목표변수의 확률을 바로 출력하는 기준선이다.
 
-$$
-\hat q_D(Y_i=y_i\mid Y_j=y_j)
-=
-q(Y_i=y_i\mid Y_j=y_j)
-$$
+$$\hat q_D(Y_i=y_i\mid Y_j=y_j)=q(Y_i=y_i\mid Y_j=y_j)$$
 
 예를 들어 다음처럼 곧바로 $X_3$을 예측한다.
 
@@ -461,18 +453,7 @@ Scaffolded generation에서는 연구자가 베이지안 네트워크 구조를 
 
 중간 변수 집합을 $S$라고 하면, 모델은 중간 변수의 값들을 여러 번 샘플링한 뒤 목표확률을 평균한다.
 
-$$
-\hat q_S(Y_i=y_i\mid Y_j=y_j)
-=
-\frac{1}{M}
-\sum_{k=1}^{M}
-q\left(
-Y_i=y_i
-\mid
-\{Y_s=y_s^{(k)}\}_{s\in S},
-Y_j=y_j
-\right)
-$$
+$$\hat q_S(Y_i=y_i\mid Y_j=y_j)=\frac{1}{M}\sum_{k=1}^{M}q\left(Y_i=y_i\mid\{Y_s=y_s^{(k)}\}_{s\in S},Y_j=y_j\right)$$
 
 여기서 $M$은 Monte Carlo 샘플 수다. 논문에서는 10회 샘플링했다.
 
@@ -524,21 +505,7 @@ Y1 → Y2 → Y3 → ... → YN
 
 이 조건에서 저자들은 중간 변수들을 거친 추정의 편향이 직접 예측의 편향보다 작아지는 **reasoning gap**이 존재함을 보인다.
 
-$$
-\left|
-\mathbb E\left[
-\hat q_S(Y_i=y_i\mid Y_j=y_j)
-\right]
--
-p_d(Y_i=y_i\mid Y_j=y_j)
-\right|^2
-<
-\left|
-\hat q_D(Y_i=y_i\mid Y_j=y_j)
--
-p_d(Y_i=y_i\mid Y_j=y_j)
-\right|^2
-$$
+$$\left|\mathbb E\left[\hat q_S(Y_i=y_i\mid Y_j=y_j)\right]-p_d(Y_i=y_i\mid Y_j=y_j)\right|^2<\left|\hat q_D(Y_i=y_i\mid Y_j=y_j)-p_d(Y_i=y_i\mid Y_j=y_j)\right|^2$$
 
 왼쪽은 중간 변수들을 거친 scaffolded 추정의 제곱편향이고, 오른쪽은 직접 예측의 제곱편향이다.
 

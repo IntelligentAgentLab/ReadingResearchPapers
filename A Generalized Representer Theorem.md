@@ -210,8 +210,7 @@ $$
 *그림 2. 논문의 식 (20)–(24). 훈련점 span에 수직인 성분 (v)는 훈련 예측에는 영향을 주지 않지만 규제항을 증가시키므로 최적해에서 사라진다.*
 
 결국 최적해는 다음 공간에 속한다.
-
-$$f^*\in\operatorname{span}\{k(\cdot,x_1),\ldots,k(\cdot,x_m)\}$$
+$$f^*\in\mathrm{span}\{k(\cdot,x_1),\ldots,k(\cdot,x_m)\}$$
 
 직관적으로 말하면, 훈련 데이터를 맞추는 데 아무 도움도 주지 않으면서 함수의 복잡도만 증가시키는 방향은 최적해에 남아 있을 이유가 없다.
 
@@ -283,7 +282,7 @@ $$
 
 논문의 Theorem 2는 커널 부분 외에 미리 정한 함수들을 포함하는 경우도 다룬다.
 
-$$\tilde f=f+h,\qquad h\in\operatorname{span}\{\psi_1,\ldots,\psi_M\}$$
+$$\tilde f=f+h,\qquad h\in\mathrm{span}\{\psi_1,\ldots,\psi_M\}$$
 
 이 경우 최적해는 다음 형태를 갖는다.
 
@@ -301,7 +300,7 @@ $$\frac12\lVert f-f_0\rVert_{\mathcal H}^2$$
 
 신경망은 함수를 다음처럼 매개변수화한다.
 
-$$f_\theta(x)=\operatorname{NN}(x;\theta)$$
+$$f_\theta(x)=\mathrm{NN}(x;\theta)$$
 
 그리고 네트워크의 가중치 (	heta)와 내부 특징 표현을 함께 학습한다. 반면 커널 방법은
 
