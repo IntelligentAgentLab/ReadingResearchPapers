@@ -57,11 +57,11 @@ FOL은 변수와 양화사도 사용할 수 있다.
 
 “모든 인간은 죽는다”는 다음과 같이 표현된다.
 
-$\forall x\,(Human(x)\rightarrow Mortal(x))$
+$\forall x\ (Human(x)\rightarrow Mortal(x))$
 
 “어떤 인간은 철학자다”는 다음과 같다.
 
-$\exists x\,(Human(x)\land Philosopher(x))$
+$\exists x\ (Human(x)\land Philosopher(x))$
 
 또한 여러 개체 사이의 관계도 표현할 수 있다.
 
@@ -103,7 +103,8 @@ $(Human(alice)\rightarrow Mortal(alice)) \land (Human(bob)\rightarrow Mortal(bob
 
 양화사는 유한한 도메인에서 다음과 같이 전개된다.
 
-$\forall x\,P(x) \quad\longrightarrow\quad P(a)\land P(b)\land\cdots$$\exists x\,P(x) \quad\longrightarrow\quad P(a)\lor P(b)\lor\cdots$
+$\forall x\ P(x) \quad\longrightarrow\quad P(a)\land P(b)\land\cdots$
+$\exists x\ P(x) \quad\longrightarrow\quad P(a)\lor P(b)\lor\cdots$
 
 다만 도메인이 무한하거나 함수 기호를 통해 무한히 많은 항이 생성된다면 grounding 결과 역시 무한해질 수 있다. 따라서 모든 FOL 문제를 항상 유한한 명제논리 문제로 변환할 수 있는 것은 아니다.
 
@@ -158,7 +159,8 @@ ILP 문제는 보통 다음 세 요소로 구성된다.
 
 목표는 대체로 다음 조건을 만족하는 가설 $H$를 찾는 것이다.
 
-$B\cup H\models E^+$$B\cup H\not\models E^-$
+$B\cup H\models E^+$
+$B\cup H\not\models E^-$
 
 여기서 $E^+$는 설명해야 하는 양성 예제이고, $E^-$는 잘못 유도해서는 안 되는 음성 예제다.
 
@@ -359,7 +361,8 @@ ILP와 SAT는 같은 문제가 아니다.
 
 후보 규칙 $r_1,r_2,\ldots$가 있다면 각 규칙의 선택 여부를 명제변수로 만든다.
 
-$S_1=\text{규칙 }r_1\text{을 선택한다}$$S_2=\text{규칙 }r_2\text{를 선택한다}$
+$S_1=\text{규칙 }r_1\text{을 선택한다}$
+$S_2=\text{규칙 }r_2\text{를 선택한다}$
 
 그런 다음 다음 조건을 명제논리 제약으로 표현한다.
 

@@ -21,7 +21,7 @@
 	- 왜 AI는 단계적으로 생각할 때 더 잘 풀까?
 ## 2. Neuro-symbolic AI 관련 연구
 
-- [1. Neurosymbolic AI 연구 정리](1.%20Neurosymbolic%20AI%20연구%20정리.md)
+- [1. Neurosymbolic AI 연구 정리](./2.%20Neurosymbolic%20AI/1.%20Neurosymbolic%20AI%20연구%20정리.md)
 #### 대표적인 Survey 논문
 - Towards data-and knowledge-driven AI- a survey on neuro-symbolic computing 
 #### 논문 리뷰
@@ -55,7 +55,8 @@
 	- 논리 제약을 100% 보장하는 예측 레이어
 - [Semantic-based regularization for learning and inference](./2.%20Neurosymbolic%20AI/Semantic-based%20regularization%20for%20learning%20and%20inference.md)
 	- 데이터로부터의 학습과 논리적 추론을 하나의 최적화 문제로 통합
-
+- [ex-Lifted Rule Injection for Relation Embeddings](ex-Lifted%20Rule%20Injection%20for%20Relation%20Embeddings.md)
+	- 논리 규칙을 벡터 공간의 부등식으로 바꾸기
 ## 3. Ontology and Knowledge Graph
 
 #### 논문 리뷰
