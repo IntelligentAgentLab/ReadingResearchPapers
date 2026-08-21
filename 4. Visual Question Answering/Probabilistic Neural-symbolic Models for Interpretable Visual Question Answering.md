@@ -372,7 +372,7 @@ Answer            ──→ p(a) = θ_Answer(att₄)               분포 출력
 
 ### 3) 3단계: Joint Training
 
-$$\mathcal{L} + U_f \approx \sum_{m=1}^{M} \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\gamma \log p(a_m|i_m;\theta_z) + \log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] + \sum_{n=1}^{N}\Big[\alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)\Big] \tag{6}$$
+$\mathcal{L} + U_f \approx \sum_{m=1}^{M} \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\gamma \log p(a_m|i_m;\theta_z) + \log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] + \sum_{n=1}^{N}\Big[\alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)\Big] \tag{6}$
 
 γ > 1은 답변 우도에 붙는 스케일 인자다. 답변은 질문보다 정보량(bits)이 적으므로 키워준다. 실험에서는 γ ∈ {1, 10, 100}을 스윕한다. α와 β는 1단계와 같은 값을 쓴다.
 
