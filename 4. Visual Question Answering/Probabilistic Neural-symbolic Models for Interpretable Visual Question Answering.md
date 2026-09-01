@@ -1,12 +1,22 @@
+---
+title: Probabilistic Neural-symbolic Models for Interpretable Visual Question Answering
+annotation: 프로그램을 확률변수로 두고 VQA의 추론을 캐물을 수 있게 만들기
+journal: ICML
+publishYear: "2019"
+authors: Ramakrishna Vedantam, Karan Desai, Stefan Lee, Marcus Rohrbach, Dhruv Batra, Devi Parikh
+tags:
+  - visual_question_answering
+  - neural_module_network
+  - variational_inference
+  - program_induction
+  - interpretability
+  - semi_supervised_learning
+---
 # 프로그램을 확률변수로: Prob-NMN 읽기
-
-> **Probabilistic Neural-symbolic Models for Interpretable Visual Question Answering**
-> Ramakrishna Vedantam, Karan Desai, Stefan Lee, Marcus Rohrbach, Dhruv Batra, Devi Parikh
-> ICML 2019 · Facebook AI Research / Georgia Tech
 
 Visual Question Answering(VQA)에서 "이 모델이 왜 그렇게 답했는가"를 프로그램 형태로 보여주려는 시도는 꽤 오래됐다. Neural Module Network 계열이 그것이다. 이 논문은 거기에 한 가지를 바꾼다 — **프로그램을 확률변수로 만든다.** 바꾸는 건 하나인데 따라 나오는 결과가 둘이다. 적은 지도 데이터로도 읽을 수 있는 프로그램이 나오고, 모델의 추론을 거꾸로 캐물을 수 있게 된다.
 
-이 글은 논문을 처음부터 훑기보다, 실제로 읽으면서 걸렸던 지점들 — z가 정확히 뭔지, p(z)는 왜 필요한지, 왜 학습을 3단계로 쪼갰는지 — 을 중심으로 정리한 것이다.
+이 글은 논문을 처음부터 훑기보다, 실제로 읽으면서 걸렸던 지점들 — 직전 연구인 CLEVR 논문과 정확히 뭐가 다른지, z가 뭔지, p(z)는 왜 필요한지, 왜 학습을 3단계로 쪼갰는지 — 을 중심으로 정리한 것이다.
 
 ---
 
@@ -22,7 +32,91 @@ Visual Question Answering(VQA)에서 "이 모델이 왜 그렇게 답했는가"�
 
 ---
 
-## 2. 핵심 아이디어: 프로그램을 잠재변수로
+## 2. CLEVR 논문과 무엇이 다른가
+
+### 1) 용어 정리: CLEVR은 데이터셋이자 베이스라인이다
+
+먼저 헷갈리기 쉬운 부분을 정리하면 — **CLEVR 데이터셋**과 **CLEVR을 만든 논문**(Johnson et al., 2017, *"Inferring and Executing Programs for Visual Reasoning"*)은 이 논문에서 같은 인용으로 등장한다. 비교 대상으로 계속 나오는 `NMN (Johnson et al., 2017)`이 바로 그 논문의 방법이다.
+
+데이터셋 자체는 그대로 쓴다. 바꾼 건 방법론이다.
+
+### 2) Johnson et al. 2017이 이미 갖고 있던 것
+
+- CLEVR 데이터셋
+- program generator (질문 → 프로그램, seq2seq) + execution engine (신경망 모듈)
+- 소수의 프로그램 어노테이션으로 지도학습한 뒤 REINFORCE로 fine-tune하는 준지도 방식
+- **단계적 학습 절차**
+
+마지막 항목이 중요하다. 3단계 최적화는 이 논문의 발명이 아니다. 논문이 직접 밝힌다.
+
+> devising a **stage-wise optimization algorithm inspired by (Johnson et al., 2017)**
+
+즉 "단계를 나눈다"는 아이디어는 물려받은 것이고, 이 논문의 기여는 그 안에 무엇을 넣었느냐다.
+
+### 3) 새로 붙은 것 — 항이 딱 두 개 늘었다
+
+Figure 1 캡션이 차분을 정확히 명시한다.
+
+> Baseline non-probabilistic neural symbolic models (**NMNs**) capture (subset of) terms and edges **shown in blue**
+
+파란색은 q_φ(z|x)와 p(a|i;θ_z) 둘이다. 정리하면 이렇다.
+
+| 항 | NMN (Johnson et al.) | Prob-NMN |
+|---|---|---|
+| q_φ(z\|x) — 질문 → 프로그램 | ✓ | ✓ |
+| p(a\|i;θ_z) — 프로그램 실행 | ✓ | ✓ |
+| **p(z) — 프로그램 사전분포** | ✗ | **✓ 추가** |
+| **p_σ(x\|z) — 프로그램 → 질문 디코더** | ✗ | **✓ 추가** |
+| z의 성격 | 결정론적 중간 출력 | **확률적 잠재변수** |
+
+구조적으로 새로 붙은 건 **prior와 decoder 두 개**뿐이다. 나머지는 전부 여기서 파생된다.
+
+- **p(z)** → 문법에서 공짜로 얻는 지도 신호. 탐색 공간을 3백만 → 1,848개로 가지치기 (6절)
+- **p_σ(x|z)** → 질문 오토인코더가 성립. 무라벨 질문 전체가 학습 신호가 됨 (7절)
+- **z가 확률변수** → ELBO/KL을 쓸 자리가 생기고, p(z|a,i) 역질의가 정의됨 (9절)
+
+### 4) 논문이 주장하는 기여 4가지
+
+Contributions 문단을 요약하면:
+
+1. 확률적 잠재 프로그램을 다루면서 **실행까지 end-to-end로 학습**하는 tractable 알고리즘
+2. 구조적 순차 잠재변수 모델의 **준지도 목적함수 유도** (Lemma 1)
+3. 적은 지도로 더 legible하고, **coherence·sensitivity를 검사할 수 있는** 추론 시스템
+4. **저지도 구간에서** CLEVR·SHAPES 성능 개선
+
+### 5) 얼마나 나아졌나
+
+CLEVR에서 프로그램 지도를 1,000쌍(전체의 0.143%)만 준 조건의 결과다. 자세한 표는 8절에 있고, 여기서는 요점만 본다.
+
+| 지표 | NMN | Prob-NMN | 차이 |
+|---|---|---|---|
+| Question Coding — 프로그램 예측 | 62.47 ± 9.82 | **93.15 ± 8.61** | +30.7 |
+| Joint Training — 프로그램 예측 | 63.08 ± 9.91 | **93.87 ± 8.73** | +30.8 |
+| **Test — VQA 정확도** | 75.71 | **97.73** | **+22.0** |
+
+핵심은 **격차가 1단계에서 이미 결정된다**는 것이다. question coding만으로 30%p가 벌어지고, 이후 단계는 그 이득을 전달할 뿐이다. 새로 추가된 두 항이 정확히 1단계에 들어가는 항이라는 점과 맞물린다.
+
+SHAPES에서는 *"test VQA accuracies **30-35% points higher** for >5% program supervision"*.
+
+성능 외에 **이전에 불가능했던 질의**가 생긴 것도 저자들이 더 강조하는 부분이다.
+
+> We are **not aware of any prior work on VQA** where it is possible to reason about coherence or sensitivity of the reasoning performed by the model.
+
+### 6) 비교의 스코프에 붙는 단서
+
+공정하게 짚어둘 것이 셋 있다.
+
+**저지도 구간 한정 비교다.** 논문이 스스로 *"in the low question program supervision regime"*이라고 못 박는다. CLEVR 학습셋에는 약 700K개 프로그램이 있는데 그중 1,000개만 쓴다. 프로그램을 충분히 주는 조건에서 두 방법이 어떻게 되는지는 이 논문의 실험 범위가 아니다.
+
+**정확도만 보면 더 센 상대가 있다.** N2NMN(Hu et al., 2017)은 SHAPES에서 **완전 비지도**로 test 96.19%를 찍는다. Prob-NMN의 20% 지도 결과(96.97)와 거의 같다. 논문의 반박은 정확도가 아니라 legibility 쪽이다 — attention으로 질문에서 답으로 정보가 새서 프로그램이 설명 역할을 못 한다는 것. 타당한 논지지만 "정확도로 이겼다"는 주장은 아니다.
+
+**단계적 학습은 상속받은 것이다.** 새로운 건 각 단계에 들어가는 목적함수이지 절차의 골격이 아니다.
+
+한 줄로 압축하면 — **Johnson et al.의 파이프라인에 프로그램 사전분포와 질문 디코더를 붙여 z를 확률변수로 승격시킨 것**이고, 그 대가로 저지도 구간 프로그램 정확도 +30%p와 역방향 질의 능력을 얻었다.
+
+---
+
+## 3. 핵심 아이디어: 프로그램을 잠재변수로
 
 **함수형 프로그램 z를 확률적 잠재변수로 취급**한다. 이미지 i가 주어졌을 때 결합분포를 다음과 같이 분해한다.
 
@@ -49,7 +143,99 @@ $$p(x, z, a \mid i) = p(z)\, p(x \mid z)\, p(a \mid i; \theta_z)$$
 
 ---
 
-## 3. 함수형 프로그램 z란 정확히 무엇인가
+## 4. 한 발 물러서서: AE → VAE 비유로 읽기
+
+프로그램 생성기에 일어난 변화를 오토인코더 → VAE의 변화로 읽으면 상당히 잘 들어맞는다. 사실 비유 이상이다 — 논문이 인용하는 문헌이 정확히 그 계보다. Eq.(1)을 도입하면서 이렇게 쓴다.
+
+> optimizing the evidence lower bound (ELBO) with an **amortized inference network q_φ** (c.f. **Kingma & Welling (2014); Rezende et al. (2014)**)
+
+VAE 원논문 두 편을 그대로 인용한다. 다만 한 군데 어긋나는 지점이 있어서, 거기를 짚어야 비유가 정확해진다.
+
+### 1) 어긋나는 지점: NMN은 애초에 오토인코더가 아니었다
+
+AE → VAE의 변화는 **z를 확률변수로 만들고 prior를 붙인 것** 하나다. 재구성 경로(x → z → x')는 AE에 이미 있었다.
+
+그런데 NMN에는 **질문으로 돌아오는 경로가 없다.**
+
+```
+NMN:        x ──q_φ──> z ──실행──> a           (재구성 없음)
+Prob-NMN:   x ──q_φ──> z ──p_σ──> x'          (재구성 추가)
+                       └──실행──> a
+```
+
+NMN은 오토인코더가 아니라 **지도 seq2seq 파서 + 실행기**다. 그러니 정확히는 이렇게 된다.
+
+| | z의 성격 | prior + KL | 재구성 경로 |
+|---|---|---|---|
+| AE | 결정론적 코드 | 없음 | **있음** |
+| VAE | 확률변수 | 있음 | 있음 |
+| NMN | 결정론적 중간 출력 | 없음 | **없음** |
+| Prob-NMN | 확률변수 | 있음 | **있음** |
+
+**AE → VAE = 변화 1개. NMN → Prob-NMN = 변화 2개.** 확률화·prior에 더해 디코더 자체를 새로 만들어 붙였다. 2절에서 "구조적으로 새로 붙은 건 prior와 decoder 두 개"라고 한 것이 이것이다.
+
+그래서 비유를 조금 고치면 **"seq2seq 파서를 VAE로 바꿨다"** 가 더 맞다.
+
+### 2) 그 위에서는 비유가 거의 그대로 성립한다
+
+대응이 항 단위로 붙는다.
+
+$$\underbrace{\mathbb{E}_{z \sim q_\phi(z|x)}\big[\log p_\sigma(x|z)\big]}_{\text{재구성}} - \underbrace{\beta\,\mathrm{KL}\big(q_\phi(z|x)\,\|\,p(z)\big)}_{\text{정규화}}$$
+
+| VAE | Prob-NMN |
+|---|---|
+| 인코더 q(z\|x) | q_φ(z\|x) — 질문 → 프로그램 LSTM |
+| 디코더 p(x\|z) | p_σ(x\|z) — 프로그램 → 질문 LSTM |
+| prior p(z) = N(0, I) | p(z) — 문법 프로그램으로 학습한 LSTM |
+| 재구성 손실 | log p_σ(x\|z) |
+| KL 항 | β log p(z) − β log q_φ(z\|x) |
+| β-VAE의 β | β = 0.1 |
+
+posterior collapse 대응까지 판박이다. 논문이 β < 1을 쓰는 근거로 대는 문헌이 Bowman et al.(2016), Alemi et al.(2018) — 텍스트 VAE에서 KL 붕괴를 다룬 바로 그 계열이다.
+
+> This has been shown to be important for learning meaningful representations when **decoding sequences**
+
+방향만 주의하면 된다. β-VAE는 disentanglement를 위해 β > 1을 쓰지만, 여기는 붕괴를 막으려고 β < 1이다. 논문도 *"violating the bound"* 라고 인정한다.
+
+### 3) 세 가지 결정적 차이
+
+**첫째, z가 이산·구조적이라 reparameterization trick이 없다.** VAE의 핵심 장치가 여기서는 못 쓰인다. z가 이산 토큰 시퀀스라 미분 경로가 끊긴다. 그래서 **REINFORCE + moving average baseline**이다. 저분산 그래디언트를 공짜로 주는 게 VAE의 매력인데, 그 매력이 사라진 자리에서 논문의 공학적 고생이 시작된다 — 3단계 분리도 결국 이것 때문이다.
+
+**둘째, prior가 무정보(uninformative)가 아니다.** N(0, I)는 "아무 것도 모른다"에 가깝다. 반면 p(z)는 문법에서 시뮬레이션한 1,848개 프로그램으로 학습된 **매우 정보량 높은** prior다. VAE에서 KL 항은 주로 잠재공간을 매끄럽게 만드는 정규화지만, 여기서는 **실행 가능성 제약**에 가깝다. 문법 위반 프로그램은 파싱조차 안 되니까.
+
+**셋째, z에 외부에서 정해진 의미가 있다 — 준지도 VAE다.** VAE의 z는 모델 마음대로다. 3번째 차원이 뭘 뜻하는지 아무도 지정하지 않는다. 그런데 여기 z는 `filter[cube]`가 반드시 "큐브 찾기"여야 한다. 그래서 지도 항 Eq.(3)이 붙는다. 이건 바닐라 VAE에 없고 **Kingma et al.(2014)의 준지도 VAE(M2)** 에 있다.
+
+> Ideally, one would like to reuse the same variational approximation q_φ(·) ... so that it learns from both labelled as well as unlabelled data (c.f. **Kingma et al. (2014)**)
+
+Lemma 1의 위치도 여기다.
+
+> This is an **extension of the result for a related graphical model (with discrete z observations) from (Kingma et al., 2014; Keng, 2017) to the case where z is a sequence.**
+
+M2에서 라벨 y는 클래스 하나였다. 여기서는 **라벨이 프로그램 시퀀스 전체**다. 그걸 시퀀스로 확장한 게 Lemma 1의 기여다.
+
+### 4) VAE 틀 밖으로 나가는 부분
+
+잠재변수에 붙은 머리가 하나 더 있다.
+
+```
+                 ┌── p_σ(x|z)      재구성 (VAE)
+q_φ(z|x) ─→ z ───┤
+                 └── p(a|i;θ_z)    실행 (VAE에 없음)
+```
+
+z가 동시에 세 압력을 받는다 — **문법적일 것**(prior), **질문을 복원할 것**(디코더), **실행하면 답이 맞을 것**(실행기). 세 번째가 표준 VAE에는 없다.
+
+γ log p(a|i;θ_z)에 γ ∈ {1,10,100}을 곱하는 것도 이 때문인데, 이 스케일링의 출처는 논문이 인용하는 **멀티모달 VAE**(Vedantam et al., 2018; Suzuki et al., 2017)다. 서로 정보량이 다른 모달리티를 하나의 잠재변수에 묶을 때 쓰는 관행이다.
+
+### 5) 한 줄 정리
+
+> Prob-NMN의 프로그램 생성기는 **"질문에 대한 준지도 이산 시퀀스 VAE"** 이고, 그 잠재변수가 실행 가능한 프로그램이라 실행기 머리가 하나 더 달려 있다.
+
+AE → VAE 비유로 잡으면 큰 그림은 정확하다. 다만 시작점이 AE가 아니라 seq2seq였다는 것, 그리고 z가 이산·유의미·부분관측이라 M2 + 텍스트 VAE + 멀티모달 VAE의 장치가 전부 동원된다는 것 — 이 정도만 얹으면 된다.
+
+---
+
+## 5. 함수형 프로그램 z란 정확히 무엇인가
 
 ### 1) 트리이자 시퀀스
 
@@ -219,11 +405,11 @@ z = [Answer, And, transform[below], find[blue], find[blue]]   ← LSTM이 뱉은
 
 ---
 
-## 4. 문법 사전분포 p(z)
+## 6. 문법 사전분포 p(z)
 
 ### 1) 한 줄 요약
 
-p(z)는 **"프로그램 언어의 어법을 배운 언어모델"** 이다. 어떤 질문에 대응하는지는 전혀 모르고, 오직 **"이런 토큰 배열은 프로그램으로 말이 된다 / 안 된다"** 만 안다.
+p(z)는 **"프로그램 언어의 어법을 배운 언어모델"**이다. 어떤 질문에 대응하는지는 전혀 모르고, 오직 **"이런 토큰 배열은 프로그램으로 말이 된다 / 안 된다"**만 안다.
 
 ### 2) 문법책 vs. 번역 사전
 
@@ -278,7 +464,7 @@ p(z)는 주변분포라서 질문이 필요 없다. 반면 q_φ(z|x)를 지도�
 
 ### 4) p(z)가 실제로 하는 일: 탐색 공간 가지치기
 
-SHAPES에서 길이 4~6인 **아무 토큰 배열**의 수는 12⁴ + 12⁵ + 12⁶ ≈ **3,255,552개**다. 이 중 실제로 파싱되는 프로그램은 **1,848개**, 약 **0.06%** 다.
+SHAPES에서 길이 4~6인 **아무 토큰 배열**의 수는 12⁴ + 12⁵ + 12⁶ ≈ **3,255,552개**다. 이 중 실제로 파싱되는 프로그램은 **1,848개**, 약 **0.06%**다.
 
 나머지 99.94%는 이런 쓰레기다.
 
@@ -310,17 +496,17 @@ i와 독립인 건 **가정**이고, 대가가 있다. 논문 각주 1이 이걸
 
 ---
 
-## 5. 3단계 학습
+## 7. 3단계 학습
 
 데이터셋은 D = {xⁿ, zⁿ}ᴺ ∪ {xᵐ, aᵐ, iᵐ}ᴹ이고 N ≪ M이다. N개는 질문에 프로그램이 달린 teaching set, M개는 질문·이미지·답만 있는 VQA set이다. 즉 z는 **부분적으로만 관측되는** 잠재변수다.
 
-학습은 {θ_Z, σ, φ}를 추정하는 것이고, 논문은 이를 stage-wise로 나눈다.
+학습은 {θ_Z, σ, φ}를 추정하는 것이고, 논문은 이를 stage-wise로 나눈다. 앞서 봤듯 이 골격 자체는 Johnson et al.(2017)에서 물려받은 것이다.
 
 ### 1) 1단계: Question Coding
 
-$$\sum_m \log p(x_m) \geq \sum_m \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] = U_{qc}$$
+$$\sum_m \log p(x_m) \geq \sum_m \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] = U_{qc} \tag{1}$$
 
-$$\mathcal{L} \approx \sum_{n=1}^{N} \alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)$$
+$$\mathcal{L} \approx \sum_{n=1}^{N} \alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n) \tag{3}$$
 
 Eq.(1)은 무라벨 질문에 대한 ELBO이고 Eq.(3)은 소수 라벨 쌍에 대한 항이다. Algorithm 1은 **두 항을 함께** 최적화한다고 명시한다.
 
@@ -346,7 +532,7 @@ Eq.(1)은 무라벨 질문에 대한 ELBO이고 Eq.(3)은 소수 라벨 쌍에 �
 
 1단계가 끝나면 q_φ(z|x)가 질문을 프로그램으로 바꿔주지만, **θ_Z는 아직 난수**다. `find[green]`이라는 심볼은 있는데 그에 해당하는 CNN이 초록색과 아무 관계가 없다.
 
-$$\max_{\theta_Z} \sum_{m=1}^{M} \mathbb{E}_{z \sim q(z|x_m)}\big[\log p_{\theta_z}(a_m \mid z, i_m)\big]$$
+$$\max_{\theta_Z} \sum_{m=1}^{M} \mathbb{E}_{z \sim q(z|x_m)}\big[\log p_{\theta_z}(a_m \mid z, i_m)\big] \tag{5}$$
 
 > The goal is to find a good initialization of the module parameters, say θ_find[green] that **binds the execution to the computations expected for the symbol** `find[green]`
 
@@ -372,7 +558,7 @@ Answer            ──→ p(a) = θ_Answer(att₄)               분포 출력
 
 ### 3) 3단계: Joint Training
 
-$\mathcal{L} + U_f \approx \sum_{m=1}^{M} \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\gamma \log p(a_m|i_m;\theta_z) + \log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big]$ $+ \sum_{n=1}^{N}\Big[\alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)\Big] \tag{6}$
+$$\mathcal{L} + U_f \approx \sum_{m=1}^{M} \mathbb{E}_{z \sim q_\phi(z|x_m)}\Big[\gamma \log p(a_m|i_m;\theta_z) + \log p_\sigma(x_m|z) - \beta \log q_\phi(z|x_m) + \beta \log p(z)\Big] + \sum_{n=1}^{N}\Big[\alpha \log q_\phi(z^n|x^n) + \log p_\sigma(x^n|z^n)\Big] \tag{6}$$
 
 γ > 1은 답변 우도에 붙는 스케일 인자다. 답변은 질문보다 정보량(bits)이 적으므로 키워준다. 실험에서는 γ ∈ {1, 10, 100}을 스윕한다. α와 β는 1단계와 같은 값을 쓴다.
 
@@ -410,7 +596,7 @@ Table 1이 그 증거다. 5% 지도에서 NMN의 joint training 프로그램 예
 
 ---
 
-## 6. 결과
+## 8. 결과
 
 ### 1) CLEVR
 
@@ -426,8 +612,6 @@ CLEVR은 프로그램 지도를 **1,000쌍(전체의 0.143%)**만 쓴다. 나머
 
 *단위 %, 높을수록 좋음. Validation은 CLEVR v1.0 validation split에서 뽑은 20K 예제, 15개 random seed 기준. 비교 대상인 NMN은 이 문제를 위해 만들어진 준지도 neural module network(Johnson et al., 2017)를 같은 저지도 조건으로 옮긴 것으로, 약한 baseline이 아니다.*
 
-주목할 점은 격차가 **1단계에서 이미 벌어진다**는 것이다. question coding만으로 62.47 → 93.15로 30%p 차이가 나고, 그 이득이 이후 단계로 그대로 전달된다.
-
 ### 2) SHAPES
 
 SHAPES는 지도 비율을 5/10/15/20%로 바꿔가며 본다. 여기서 %는 **unique question 기준**이라, 20% 지도에서도 unique question의 80%는 프로그램을 본 적이 없다.
@@ -441,11 +625,9 @@ SHAPES는 지도 비율을 5/10/15/20%로 바꿔가며 본다. 여기서 %는 **
 
 *프로그램 예측은 joint training 종료 시점 기준. 단위 %, 높을수록 좋음.*
 
-> Prob-NMN quickly outpaces NMN, achieving test VQA accuracies **30-35% points higher** for >5% program supervision.
-
 5%에서는 두 방법 모두 부진한데, 논문은 이를 조합적 추론을 배우기에 예제가 너무 적은 구간으로 해석한다.
 
-여기서 3단계의 가치도 드러난다. 10% 지도에서 프로그램 예측은 2단계 후 60.18에서 3단계 후 90.62로 **30.4%p** 뛰고, VQA는 75.80에서 96.86으로 오른다. 반면 CLEVR에서는 94.42 → 95.52로 이득이 작다. 논문도 *"these improve **marginally**"* 라고 인정한다.
+여기서 3단계의 가치도 드러난다. 10% 지도에서 프로그램 예측은 2단계 후 60.18에서 3단계 후 90.62로 **30.4%p** 뛰고, VQA는 75.80에서 96.86으로 오른다. 반면 CLEVR에서는 94.42 → 95.52로 이득이 작다. 논문도 *"these improve **marginally**"*라고 인정한다.
 
 이유는 단순하다. CLEVR은 1단계 question coding이 이미 93%에 도달해서 고칠 게 별로 없다. 반면 SHAPES 10%는 60%에서 출발하니 여지가 크다. 정리하면 — **3단계의 가치는 1단계 이후 인코더가 얼마나 틀린 채로 남아 있느냐에 비례한다.**
 
@@ -467,9 +649,11 @@ SHAPES는 지도 비율을 5/10/15/20%로 바꿔가며 본다. 여기서 %는 **
 
 5%에서 프로그램이 `green`으로 틀리면 재구성된 질문도 "Is a **green** shape below a **green** shape?"로 똑같이 틀린다. 10%에서 부분적으로, 15%에서 완전히 교정되면서 질문도 함께 정확해진다. 잠재공간·질문공간·답변공간이 서로 붙어서 움직인다는 증거다.
 
+이 관찰은 NMN에서는 아예 나올 수 없다는 점도 짚어둘 만하다. 재구성된 질문이라는 물건 자체가 디코더 p_σ(x|z)의 산물이고, 그건 이 논문이 새로 붙인 항이다.
+
 ---
 
-## 7. Coherence와 Sensitivity
+## 9. Coherence와 Sensitivity
 
 ### 1) 정의
 
@@ -517,8 +701,8 @@ $$p(z \mid a, i) \propto p(z) \cdot p(a \mid i; \theta_z)$$
 Figure 3 상단에서 나온 세 프로그램을 prefix로 쓰면 이렇다.
 
 ```
-[answer, and, transform[right],  find[red],    find[circle]]
-[answer, and, transform[left],   find[circle], find[square]]
+[answer, and, transform[right],  find[red],       find[circle]]
+[answer, and, transform[left],   find[circle],    find[square]]
 [answer, and, transform[below], transform[left], find[red], find[red]]
 ```
 
@@ -562,9 +746,9 @@ z를 **확률변수**로 만든 순간 베이즈 규칙이 적용 가능해지�
 
 ---
 
-## 8. 한계와 남는 질문
+## 10. 한계와 남는 질문
 
-정직하게 짚어둘 부분들이 있다.
+2절에서 비교 스코프에 대한 단서를 짚었고, 그 외에 정직하게 볼 부분들이 있다.
 
 **coherence/sensitivity에 정량 지표가 없다.** Table 1·2는 전부 정확도이고, 두 성질은 Figure 3의 사례 몇 개로만 제시된다. 보인 결과도 SHAPES 20% 지도 모델 하나뿐이라, 저지도 구간에서도 성립하는지는 미확인이다. 즉 "이런 질의를 던질 수 있는 모델을 만들었다"는 **능력의 존재 증명**이지, "우리 모델이 얼마나 coherent한지 측정했다"는 벤치마크는 아니다. 후속 연구가 지표화할 여지로 남겨둔 셈이다.
 
@@ -572,23 +756,25 @@ z를 **확률변수**로 만든 순간 베이즈 규칙이 적용 가능해지�
 
 **Lemma 1의 실용성.** 논문 스스로 밝히듯 Lemma 1의 하한은 delta posterior 가정 때문에 마지막 KL 항이 ∞가 되어 그대로 쓸 수 없다. 결국 앞의 두 항만 근사로 쓴다. 저자들도 각주에서 *"a promising direction for obtaining tighter bounds could be to change the parameterization of the variational q(Π) distribution"*이라며 열어둔다. 이론적 기여는 기존 준지도 목적함수(Miao & Blunsom, 2016; Yin et al., 2018)에 대한 **해명**에 가깝지, 새로운 실용 알고리즘은 아니다.
 
-**β < 1은 ELBO 위반이다.** 논문이 *"violating the bound"*라고 직접 쓴다. 시퀀스 디코딩에서 posterior collapse를 막기 위한 관행적 처방(Bowman et al., 2016; Alemi et al., 2018)이지만, 이 시점에서 최적화 대상은 더 이상 evidence의 하한이 아니다.
+**β < 1은 ELBO 위반이다.** 논문이 *"violating the bound"*라고 직접 쓴다. 시퀀스 디코딩에서 posterior collapse를 막기 위한 관행적 처방이지만, 이 시점에서 최적화 대상은 더 이상 evidence의 하한이 아니다.
 
 **아키텍처 상세가 Appendix에 있다.** 모듈 CNN의 구조, 샘플링 절차, CLEVR에서의 coherence/sensitivity 결과가 모두 본문 밖이다.
 
 ---
 
-## 9. 정리
+## 11. 정리
 
-이 논문의 변경점은 하나다 — 프로그램 z를 결정론적 함수의 출력에서 **확률변수**로 바꾼 것. 그런데 그 하나에서 두 가지가 따라 나온다.
+이 논문의 변경점은 하나다 — 프로그램 z를 결정론적 함수의 출력에서 **확률변수**로 바꾼 것. 직전 연구인 Johnson et al.(2017)과의 차분으로 보면 **prior p(z)와 디코더 p_σ(x|z), 딱 두 항이 추가됐다.** 그런데 그 둘에서 세 가지가 따라 나온다.
 
 **첫째, prior를 걸 자리가 생겼다.** p(z)는 프로그램 문법에서 시뮬레이션한 데이터로 학습되므로 사람 손이 필요 없다. SHAPES에서 이 사전분포가 후보를 3백만 개에서 2천 개로 좁혀준다. 덕분에 남은 "질문↔프로그램 대응"만 소수의 라벨로 학습하면 되고, CLEVR에서 1,000쌍(0.143%)으로 프로그램 예측 93%를 찍는 데이터 효율이 여기서 나온다.
 
-**둘째, p(z|a, i)를 물어볼 수 있게 됐다.** 이미지와 답만 주고 "그 답으로 이어질 추론"을 생성시키는 질의는 결정론적 모델에서는 정의조차 되지 않는다.
+**둘째, 무라벨 질문이 전부 학습 신호가 됐다.** 디코더가 생기면서 질문 오토인코더가 성립하고, 프로그램이 달리지 않은 질문도 재구성 손실을 통해 q_φ를 가르친다. NMN이 저지도 구간에서 무너지는 건 이 경로가 없기 때문이다.
 
-두 기여가 같은 뿌리에서 나온다는 게 이 논문의 구조다. 제목의 "Probabilistic"이 장식이 아닌 이유다.
+**셋째, p(z|a, i)를 물어볼 수 있게 됐다.** 이미지와 답만 주고 "그 답으로 이어질 추론"을 생성시키는 질의는 결정론적 모델에서는 정의조차 되지 않는다.
 
-그리고 세 단계 학습은 그 확률 모형을 실제로 굴리기 위한 공학이다. 이산 잠재변수를 REINFORCE로 다뤄야 하는데, 보상을 계산할 모듈이 아직 난수라면 학습이 시작되지 않는다. 1단계가 인코더를, 2단계가 모듈을 각각 저분산 목적으로 초기화해두고, 3단계에서 비로소 진짜 목적함수를 함께 최적화한다. 논문이 반복해서 강조하는 *"careful design of the three stage optimization procedure"*는 수사가 아니라 이 순서가 없으면 실제로 무너진다는 관찰의 요약이다.
+세 기여가 같은 뿌리에서 나온다는 게 이 논문의 구조다. 제목의 "Probabilistic"이 장식이 아닌 이유다. 그리고 4절에서 봤듯 이 변화는 계보상 **seq2seq 파서를 준지도 이산 VAE로 바꾼 것**에 해당한다 — 논문이 Kingma & Welling, Rezende, Kingma et al.(2014)을 나란히 인용하는 이유가 여기 있다.
+
+세 단계 학습은 그 확률 모형을 실제로 굴리기 위한 공학이다. 이산 잠재변수를 REINFORCE로 다뤄야 하는데, 보상을 계산할 모듈이 아직 난수라면 학습이 시작되지 않는다. 1단계가 인코더를, 2단계가 모듈을 각각 저분산 목적으로 초기화해두고, 3단계에서 비로소 진짜 목적함수를 함께 최적화한다. 논문이 반복해서 강조하는 *"careful design of the three stage optimization procedure"*는 수사가 아니라 이 순서가 없으면 실제로 무너진다는 관찰의 요약이다.
 
 ---
 

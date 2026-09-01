@@ -1,7 +1,19 @@
+---
+title: Neural Logic Machines
+annotation: 술어 텐서를 공유 MLP로 굴려 규칙을 배우게 하기
+journal: ICLR
+publishYear: "2019"
+authors: Honghua Dong, Jiayuan Mao, Tian Lin, Chong Wang, Lihong Li, Denny Zhou
+tags:
+  - neurosymbolic
+  - inductive_logic_programming
+  - relational_reasoning
+  - predicate_tensor
+  - systematic_generalization
+  - reinforcement_learning
+---
 # Neural Logic Machines: 논리 규칙을 학습하는 신경망
 
-> Honghua Dong, Jiayuan Mao, Tian Lin, Chong Wang, Lihong Li, Denny Zhou
-> **ICLR 2019** — Tsinghua University (ITCS, IIIS), Google, ByteDance
 > [프로젝트 페이지](https://sites.google.com/view/neural-logic-machines)
 
 작은 배열로 학습한 모델이 긴 배열도 정렬하고, 20명짜리 가족트리로 학습한 모델이 100명짜리 가족트리에서 100% 정확도를 낸다. Neural Logic Machines(NLM)는 신경망과 논리 프로그래밍을 결합해 이런 **완벽한 일반화**를 달성한 neural-symbolic 아키텍처다.

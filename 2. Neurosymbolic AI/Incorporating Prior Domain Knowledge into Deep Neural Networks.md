@@ -1,8 +1,18 @@
+---
+title: Incorporating Prior Domain Knowledge into Deep Neural Networks
+annotation: 도메인 제약을 ReLU 한 개짜리 손실항으로 표현하기
+journal: IEEE Big Data
+publishYear: "2018"
+authors: Nikhil Muralidhar, Mohammad Raihanul Islam, Manish Marwah, Anuj Karpatne, Naren Ramakrishnan
+tags:
+  - domain_knowledge
+  - loss_regularization
+  - monotonicity_constraint
+  - approximation_constraint
+  - physics_guided_learning
+  - aggregate_supervision
+---
 # 도메인 지식을 손실 함수에 넣는다는 것 — DANN 논문 읽기
-
-> **Incorporating Prior Domain Knowledge into Deep Neural Networks**
-> Nikhil Muralidhar, Mohammad Raihanul Islam, Manish Marwah, Anuj Karpatne, Naren Ramakrishnan
-> *2018 IEEE International Conference on Big Data (Big Data), pp. 36–45*
 
 물리 법칙을 신경망에 알려주는 방법으로 "손실 함수에 항을 하나 더 붙인다"는 접근이 있다. 이 논문은 그 아이디어를 가장 단순한 형태로 구현하고 실험한 초기 작업 중 하나다. ReLU 하나로 도메인 제약을 표현하는 트릭이 깔끔해서 읽을 가치가 있고, 동시에 그 손실항이 **실제로 언제 일을 하는가**를 따져 들어가면 이 접근의 한계도 선명하게 드러난다. 아래는 논문의 메커니즘을 뜯어보고, 마지막에 그 한계까지 밀어붙여 본 기록이다.
 

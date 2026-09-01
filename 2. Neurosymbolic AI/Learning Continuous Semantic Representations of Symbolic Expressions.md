@@ -1,7 +1,19 @@
+---
+title: Learning Continuous Semantic Representations of Symbolic Expressions
+annotation: 같은 뜻이면 같은 벡터가 되도록 수식에 좌표 찍기
+journal: ICML
+publishYear: "2017"
+authors: Miltiadis Allamanis, Pankajan Chanthirasegaran, Pushmeet Kohli, Charles Sutton
+tags:
+  - symbolic_expression
+  - semantic_equivalence
+  - recursive_neural_network
+  - representation_learning
+  - subexpression_forcing
+  - equivalence_class
+---
 # 기호 수식에 좌표를 찍는 법 — Learning Continuous Semantic Representations of Symbolic Expressions
 
-> Miltiadis Allamanis, Pankajan Chanthirasegaran, Pushmeet Kohli, Charles Sutton
-> ICML 2017 (PMLR 70) · Microsoft Research / University of Edinburgh / DeepMind / The Alan Turing Institute
 > 코드·데이터: `groups.inf.ed.ac.uk/cup/semvec`
 
 기호 추론과 연속적 신경 추론을 결합하는 것은 표현 학습의 큰 숙제 중 하나다. 이 논문은 그 방향으로 한 걸음을 내딛는다. 목표는 명료하다 — **같은 뜻이면 같은 벡터, 다른 뜻이면 다른 벡터.** 겉모습이 아무리 달라도.

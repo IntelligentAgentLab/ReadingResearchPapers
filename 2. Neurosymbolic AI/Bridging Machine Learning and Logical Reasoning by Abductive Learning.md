@@ -1,6 +1,18 @@
+---
+title: Bridging Machine Learning and Logical Reasoning by Abductive Learning
+annotation: 지각 모델과 논리 추론을 귀추로 오가며 함께 학습시키기
+journal: NeurIPS
+publishYear: "2019"
+authors: Wang-Zhou Dai, Qiuling Xu, Yang Yu, Zhi-Hua Zhou
+tags:
+  - neurosymbolic
+  - abductive_learning
+  - logical_abduction
+  - pseudo_label
+  - consistency_optimization
+  - logic_programming
+---
 # 지각과 추론을 다리 놓다: Abductive Learning (ABL) 파헤치기
-
-> Wang-Zhou Dai, Qiuling Xu, Yang Yu, Zhi-Hua Zhou, *"Bridging Machine Learning and Logical Reasoning by Abductive Learning"*, NeurIPS 2019 (Nanjing University, LAMDA).
 
 이 글은 저우즈화(Zhi-Hua Zhou) 그룹이 NeurIPS 2019에서 발표한 **Abductive Learning(ABL, 귀추 학습)** 논문을 대화하듯 뜯어본 기록이다. 논문의 큰 그림에서 시작해, 실제로 어떤 데이터를 썼는지, 알고리즘이 한 사이클씩 어떻게 도는지, `Definition 1`의 abducible predicate가 정확히 무엇을 가리키는지, 연산 규칙은 어떤 형태로 표현되는지, 그리고 문제를 십진수·사칙연산으로 키우면 탐색 공간이 어떻게 폭발하는지까지 순서대로 따라간다.
 

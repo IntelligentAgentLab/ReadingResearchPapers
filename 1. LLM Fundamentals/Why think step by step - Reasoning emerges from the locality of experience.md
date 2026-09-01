@@ -1,9 +1,20 @@
+---
+title: Why think step by step? Reasoning emerges from the locality of experience
+annotation: 사고 사슬이 통하는 이유를 경험의 국소성에서 찾기
+journal: NeurIPS
+publishYear: "2023"
+authors: Ben Prystawski, Michael Y. Li, Noah D. Goodman
+tags:
+  - chain_of_thought
+  - bayesian_network
+  - locality_of_experience
+  - reasoning
+  - autoregressive_training
+  - estimand_bias
+---
 # 왜 AI는 단계적으로 생각할 때 더 잘 풀까?
 
 ## 인공 베이지안 네트워크로 살펴본 Chain-of-Thought의 작동 원리
-
-> **대상 논문**  
-> Ben Prystawski, Michael Y. Li, Noah D. Goodman, *Why think step by step? Reasoning emerges from the locality of experience*, NeurIPS 2023.
 
 “정답만 바로 말하지 말고, 단계적으로 생각해 봐.”
 

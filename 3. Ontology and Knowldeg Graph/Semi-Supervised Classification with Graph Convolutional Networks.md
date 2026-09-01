@@ -1,6 +1,18 @@
+---
+title: Semi-Supervised Classification with Graph Convolutional Networks
+annotation: 이웃 평균 한 줄로 라벨 몇 개를 그래프 전체에 퍼뜨리기
+journal: ICLR
+publishYear: "2017"
+authors: Thomas N. Kipf, Max Welling
+tags:
+  - graph_neural_network
+  - semi_supervised_learning
+  - spectral_graph_theory
+  - node_classification
+  - message_passing
+  - chebyshev_approximation
+---
 # 소수의 라벨로 그래프 전체를 분류하기: GCN 논문 뜯어보기
-
-> Thomas N. Kipf, Max Welling, *Semi-Supervised Classification with Graph Convolutional Networks*, ICLR 2017
 
 이 글은 GNN(그래프 신경망) 분야의 기초가 된 GCN 논문을 예제와 함께 차근차근 풀어본 기록이다. "무엇을 푸는 문제인가"에서 출발해, GCN의 전파 규칙을 4개짜리 작은 그래프에서 손으로 계산하고, 라벨 2개만으로 실제 학습을 돌려 보고, 마지막으로 이 단순한 규칙이 스펙트럴 그래프 이론에서 어떻게 유도되는지까지 따라간다.
 

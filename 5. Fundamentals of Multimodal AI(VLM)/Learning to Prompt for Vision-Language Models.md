@@ -1,7 +1,19 @@
+---
+title: Learning to Prompt for Vision-Language Models
+annotation: 프롬프트 문구를 사람이 고르지 않고 벡터로 학습시키기
+journal: IJCV
+publishYear: "2022"
+authors: Kaiyang Zhou, Jingkang Yang, Chen Change Loy, Ziwei Liu
+tags:
+  - prompt_learning
+  - vision_language_model
+  - clip
+  - few_shot_learning
+  - context_optimization
+  - domain_generalization
+---
 # CLIP에게 프롬프트를 학습시키다 — CoOp 논문 읽기
 
-> **Learning to Prompt for Vision-Language Models**
-> Kaiyang Zhou, Jingkang Yang, Chen Change Loy, Ziwei Liu (S-Lab, NTU) — IJCV 2022
 > [github.com/KaiyangZhou/CoOp](https://github.com/KaiyangZhou/CoOp)
 
 ---

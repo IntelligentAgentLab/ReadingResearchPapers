@@ -1,8 +1,18 @@
+---
+title: Continual Learning Through Synaptic Intelligence
+annotation: 시냅스가 스스로 자기 중요도를 계산하게 만들기
+journal: ICML
+publishYear: "2017"
+authors: Friedemann Zenke, Ben Poole, Surya Ganguli
+tags:
+  - continual_learning
+  - synaptic_intelligence
+  - catastrophic_forgetting
+  - path_integral
+  - parameter_importance
+  - quadratic_penalty
+---
 # 시냅스에 지능을 더하다 — Continual Learning Through Synaptic Intelligence 읽기
-
-> Friedemann Zenke\*, Ben Poole\*, Surya Ganguli (Stanford University)
-> *Proceedings of the 34th International Conference on Machine Learning (ICML 2017), PMLR 70*
-> arXiv:1703.04200
 
 신경망을 여러 태스크에 순차적으로 학습시키면 이전 태스크를 잊어버린다. 이른바 **catastrophic forgetting**이다. 이 논문은 각 시냅스가 스스로 "나는 과거에 얼마나 중요했는가"를 학습 도중에 계산하게 만들어서 이 문제를 완화한다. 제목의 "synaptic intelligence"가 가리키는 게 정확히 그 지점이다.
 

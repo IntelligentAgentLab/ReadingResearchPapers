@@ -1,7 +1,19 @@
+---
+title: Measuring AI Ability to Complete Long Software Tasks
+annotation: AI 능력을 사람의 소요 시간이라는 자로 재기
+journal: NeurIPS
+publishYear: "2025"
+authors: Thomas Kwa, Ben West, Joel Becker, Amy Deng, Katharyn Garcia, Max Hasin, Sami Jawhar, Megan Kinniment, Nate Rush, Sydney Von Arx, Ryan Bloom, Thomas Broadley, Haoxing Du, Brian Goodrich, Nikola Jurkovic, Luke Harold Miles, Seraphina Nix, Tao Lin, Chris Painter, Neev Parikh, David Rein, Lucas Jun Koba Sato, Hjalmar Wijk, Daniel M. Ziegler, Elizabeth Barnes, Lawrence Chan
+tags:
+  - time_horizon
+  - agent_evaluation
+  - benchmark_design
+  - logistic_model
+  - task_length
+  - ai_progress
+---
 # AI는 "얼마나 긴 일"을 해낼 수 있을까 — 시간 지평(Time Horizon)으로 AI 능력을 재다
 
-> METR, *Measuring AI Ability to Complete Long Software Tasks* (NeurIPS 2025) 읽기
->
 > 이 글은 논문을 한 줄 요약하려는 글이 아니다. 논문을 읽으며 실제로 오갔던 질문들 — "시간으로 난이도를 재는 게 정당한가", "왜 토큰이 아니라 시간인가", "사람이 실패한 건 왜 안 세나", "이 로지스틱 식은 대체 어떻게 생긴 건가", "향상의 원동력이 언젠가 마르지 않을까" — 을 하나씩 따라가며 논문의 방법론과 함의를 뜯어본 기록이다.
 
 ---

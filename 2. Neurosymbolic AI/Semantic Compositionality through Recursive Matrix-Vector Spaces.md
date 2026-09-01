@@ -1,7 +1,18 @@
+---
+title: Semantic Compositionality through Recursive Matrix-Vector Spaces
+annotation: 단어에 벡터와 행렬을 함께 주어 합성 의미를 만들기
+journal: EMNLP-CoNLL
+publishYear: "2012"
+authors: Richard Socher, Brody Huval, Christopher D. Manning, Andrew Y. Ng
+tags:
+  - compositional_semantics
+  - recursive_neural_network
+  - matrix_vector_representation
+  - sentiment_analysis
+  - parse_tree
+  - relation_classification
+---
 # 단어를 벡터이자 함수로 보기 — Semantic Compositionality through Recursive Matrix-Vector Spaces
-
-> Richard Socher, Brody Huval, Christopher D. Manning, Andrew Y. Ng
-> Stanford University, EMNLP-CoNLL 2012, pp. 1201–1211
 
 ---
 
@@ -11,7 +22,7 @@
 
 의미 벡터 공간은 검색 질의 확장, 정보 검색을 위한 사실 추출, 위키피디아 링크 자동 주석 같은 여러 자연어 응용의 핵심에 있다. 이런 모델에서 단어의 의미는 그 단어와 이웃 단어들의 공기(co-occurrence) 통계로부터 계산된 벡터로 인코딩되고, 이렇게 얻은 벡터는 사람의 단어 유사도 판단과 잘 상관된다는 것이 알려져 있다.
 
-문제는 그 다음이다. 단어 벡터는 개별 단어의 의미는 잘 잡지만 **합성성(compositionality)**을 잡지 못한다. 합성성이란 화자가 단어들의 의미와 그것을 결합하는 규칙으로부터 더 긴 표현의 의미를 결정할 수 있게 해 주는 자연어의 성질이다. 이것이 없으면 더 긴 구나 문장의 의미에 대한 깊은 이해로 나아갈 수 없다.
+문제는 그 다음이다. 단어 벡터는 개별 단어의 의미는 잘 잡지만 **합성성(compositionality)** 을 잡지 못한다. 합성성이란 화자가 단어들의 의미와 그것을 결합하는 규칙으로부터 더 긴 표현의 의미를 결정할 수 있게 해 주는 자연어의 성질이다. 이것이 없으면 더 긴 구나 문장의 의미에 대한 깊은 이해로 나아갈 수 없다.
 
 가장 흔한 접근은 단어 벡터들의 선형 결합 — 합이나 가중 평균 — 을 취하는 것이다. 정보 검색이나 어휘 유사도 기반 텍스트 유사도 함수에서 실제로 이렇게 한다. 텍스트의 의미가 말 그대로 "부분들의 합"일 때는 잘 작동하지만, **단어가 다른 단어의 의미를 수정하는 연산자로 기능할 때는 무너진다.** "extremely strong"의 의미는 "extremely"와 "strong"의 벡터 합으로 잡히지 않는다.
 

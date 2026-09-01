@@ -1,6 +1,18 @@
+---
+title: Making Neural Programming Architectures Generalize via Recursion
+annotation: 재귀를 감독 신호에 심어 완벽한 일반화를 증명하기
+journal: ICLR
+publishYear: "2017"
+authors: Jonathon Cai, Richard Shin, Dawn Song
+tags:
+  - neural_programming
+  - recursion
+  - provable_generalization
+  - neural_programmer_interpreter
+  - program_induction
+  - execution_trace
+---
 # 재귀(Recursion)로 신경망 프로그램을 완벽하게 일반화시키기
-
-> Jonathon Cai, Richard Shin, Dawn Song, "Making Neural Programming Architectures Generalize via Recursion", ICLR 2017
 
 프로그램을 데이터로부터 학습하는 신경망은 오랫동안 **일반화(generalization)에 취약**했다. 이 논문은 그 문제를 아키텍처를 갈아엎지 않고, "재귀"라는 오래된 프로그래밍 개념 하나를 감독 신호에 심는 것만으로 해결한다. 그 결과 몇 개의 짧은 예시만으로 학습한 프로그램이 임의로 긴 입력에서도 100% 정확도로 동작하고, 심지어 그 완벽한 일반화를 **형식적으로 증명**까지 할 수 있게 된다. 이 글은 이 논문을 처음 읽는 사람도 따라올 수 있도록, 문제의식부터 덧셈 예제의 실행 과정까지 차근차근 풀어 쓴 것이다.
 

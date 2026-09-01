@@ -1,7 +1,18 @@
+---
+title: Introducing Language Guidance in Prompt-based Continual Learning
+annotation: 클래스 이름이 만드는 언어 공간에 시각 표현을 붙들어 두기
+journal: ICCV
+publishYear: "2023"
+authors: Muhammad Gul Zain Ali Khan, Muhammad Ferjad Naeem, Luc Van Gool, Didier Stricker, Federico Tombari, Muhammad Zeshan Afzal
+tags:
+  - continual_learning
+  - prompt_tuning
+  - language_guidance
+  - clip
+  - contrastive_alignment
+  - rehearsal_free
+---
 # Introducing Language Guidance in Prompt-based Continual Learning
-
-> Khan et al., ICCV 2023 (arXiv:2308.15827)
-> RPTU / DFKI / ETH Zürich / TUM / Google
 
 Continual Learning에 언어 가이던스를 도입한다는 발상 자체는 단순합니다. 태스크마다 시각적 분포는 바뀌지만, 그 태스크가 무엇을 분류하려는지는 결국 클래스 이름 — 즉 언어로 표현되고, 그 언어 표현은 태스크가 바뀌어도 같은 의미 공간 안에 놓여 있다는 것입니다. 이 글은 그 아이디어가 prompt 기반 continual learning에서 구체적으로 어떤 연산으로 구현되는지, 그리고 그 실험적 근거가 얼마나 단단한지를 따라가 봅니다.
 

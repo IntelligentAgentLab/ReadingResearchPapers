@@ -1,8 +1,19 @@
+---
+title: Towards a General Time Series Anomaly Detector with Adaptive Bottlenecks and Dual Adversarial Decoders
+annotation: 도메인마다 모델을 새로 학습하지 않는 이상 탐지기
+journal: ICLR
+publishYear: "2025"
+authors: Qichao Shentu, Beibu Li, Kai Zhao, Yang Shu, Zhongwen Rao, Lujia Pan, Bin Yang, Chenjuan Guo
+tags:
+  - anomaly_detection
+  - time_series
+  - zero_shot_inference
+  - adaptive_bottleneck
+  - adversarial_decoder
+  - multi_domain_pretraining
+---
 # 하나의 모델로 모든 도메인의 이상을 탐지한다: DADA 논문 소개
 
-**논문**: Towards a General Time Series Anomaly Detector with Adaptive Bottlenecks and Dual Adversarial Decoders
-**저자**: Qichao Shentu, Beibu Li 외 (East China Normal University, Aalborg University, Huawei Noah's Ark Lab)
-**학회**: ICLR 2025
 **코드**: https://github.com/decisionintelligence/DADA
 
 ## 1. 왜 이 논문이 흥미로운가

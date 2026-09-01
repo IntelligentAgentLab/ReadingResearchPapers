@@ -1,6 +1,18 @@
+---
+title: A Generalized Representer Theorem
+annotation: 무한차원 함수 최적화를 훈련점 개수만큼의 계수로 줄이기
+journal: COLT
+publishYear: "2001"
+authors: Bernhard Schölkopf, Ralf Herbrich, Alex J. Smola
+tags:
+  - kernel_method
+  - rkhs
+  - representer_theorem
+  - regularization
+  - convex_optimization
+  - function_approximation
+---
 # 무한차원 함수 최적화를 유한차원 문제로 바꾸는 Representer Theorem
-
-> Bernhard Schölkopf, Ralf Herbrich, Alex J. Smola, *A Generalized Representer Theorem*, COLT/EuroCOLT 2001
 
 커널 방법을 처음 접하면 한 가지 의문이 생긴다. 커널이 정의하는 특징 공간은 무한차원일 수도 있는데, 그 안에서 어떻게 최적의 함수를 실제 컴퓨터로 찾을 수 있을까?
 

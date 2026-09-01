@@ -1,6 +1,19 @@
+---
+title: Augmenting Neural Networks with First-order Logic
+annotation: 논리식을 신경망의 중간 층 제약으로 컴파일하기
+journal: ACL
+publishYear: "2019"
+authors: Tao Li, Vivek Srikumar
+tags:
+  - neurosymbolic
+  - first_order_logic
+  - layer_augmentation
+  - attention_constraint
+  - natural_language_inference
+  - t_norm
+---
 # 논리식을 신경망 층으로 컴파일하기 — Augmenting Neural Networks with First-order Logic
 
-> Tao Li, Vivek Srikumar (University of Utah), ACL 2019
 > 코드: [utahnlp/layer_augmentation](https://github.com/utahnlp/layer_augmentation)
 
 ---

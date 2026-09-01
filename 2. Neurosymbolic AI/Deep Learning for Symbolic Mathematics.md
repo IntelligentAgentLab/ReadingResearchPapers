@@ -1,6 +1,18 @@
+---
+title: Deep Learning for Symbolic Mathematics
+annotation: 적분과 미분방정식을 번역 문제로 바꾸기
+journal: ICLR
+publishYear: "2020"
+authors: Guillaume Lample, François Charton
+tags:
+  - symbolic_mathematics
+  - seq2seq
+  - transformer
+  - expression_tree
+  - data_generation
+  - computer_algebra_system
+---
 # 신경망으로 적분을 풀다 — Deep Learning for Symbolic Mathematics 읽기
-
-> Guillaume Lample, François Charton (Facebook AI Research, 2019 / ICLR 2020)
 
 신경망은 통계적이고 근사적인 문제에는 강하지만 정확한 계산이나 기호(symbol) 조작에는 약하다는 게 오랜 통념이었다. 이 논문은 그 통념을 정면으로 반박한다. 평범한 Transformer 기반 seq2seq 모델이 **함수 적분**과 **미분방정식 풀이** 같은 꽤 정교한 기호 수학 문제에서, 심지어 Mathematica·Maple·Matlab 같은 상용 컴퓨터 대수 시스템(CAS)을 능가한다는 것이다.
 

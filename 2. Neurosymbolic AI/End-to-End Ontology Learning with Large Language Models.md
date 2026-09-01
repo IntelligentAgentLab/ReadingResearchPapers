@@ -1,9 +1,22 @@
+---
+title: End-to-End Ontology Learning with Large Language Models
+annotation: 온톨로지 학습을 하위작업 조합이 아니라 부분 그래프 생성으로 다시 정의하기
+journal: NeurIPS
+publishYear: "2024"
+authors: Andy Lo, Albert Q. Jiang, Wenda Li, Mateja Jamnik
+tags:
+  - ontology_learning
+  - large_language_model
+  - subgraph_generation
+  - taxonomy
+  - graph_similarity_metric
+  - end_to_end_learning
+---
 # LLM으로 온톨로지를 처음부터 끝까지 학습하기 — OLLM 논문 읽기
 
-> Andy Lo, Albert Q. Jiang, Wenda Li, Mateja Jamnik, *End-to-End Ontology Learning with Large Language Models*, NeurIPS 2024
-> (University of Cambridge / University of Edinburgh) · [코드·데이터셋](https://github.com/andylolu2/ollm)
+> [코드·데이터셋](https://github.com/andylolu2/ollm)
 
-이 글은 위 논문을 함께 읽으며 나눈 대화를 정리한 것이다. 온톨로지 학습을 "하위작업의 조합"이 아니라 "문서 → 부분 그래프(subgraph) 생성"이라는 하나의 end-to-end 문제로 재정의한 **OLLM**을 중심으로, 정답 데이터를 어떻게 구했는지, 이 방법이 왜 "추출"이 아니라 "생성"인지, 그리고 새로 제안된 평가 지표들이 무엇을 재는지까지 차례로 살펴본다.
+이 글은 이 논문을 함께 읽으며 나눈 대화를 정리한 것이다. 온톨로지 학습을 "하위작업의 조합"이 아니라 "문서 → 부분 그래프(subgraph) 생성"이라는 하나의 end-to-end 문제로 재정의한 **OLLM**을 중심으로, 정답 데이터를 어떻게 구했는지, 이 방법이 왜 "추출"이 아니라 "생성"인지, 그리고 새로 제안된 평가 지표들이 무엇을 재는지까지 차례로 살펴본다.
 
 ---
 

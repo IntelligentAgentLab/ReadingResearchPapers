@@ -1,6 +1,18 @@
+---
+title: "CCN+: A neuro-symbolic framework for deep learning with requirements"
+annotation: 규칙을 어기는 예측이 나올 수 없게 출력을 잘라내기
+journal: International Journal of Approximate Reasoning
+publishYear: "2024"
+authors: Eleonora Giunchiglia, Alex Tatomir, Mihaela Cătălina Stoian, Thomas Lukasiewicz
+tags:
+  - neurosymbolic
+  - requirement_satisfaction
+  - constraint_layer
+  - label_ordering
+  - multi_label_classification
+  - stratified_negation
+---
 # 규칙을 "반드시" 지키는 신경망: CCN+ 뜯어보기
-
-> Giunchiglia, Tatomir, Stoian, Lukasiewicz, *"CCN+: A neuro-symbolic framework for deep learning with requirements"*, International Journal of Approximate Reasoning 171 (2024). TU Wien · University of Oxford.
 
 이 글은 CCN+ 논문을 읽으며 나눈 대화를 정리한 것이다. 논문의 요약이라기보다는, "이 프레임워크가 도대체 어떤 원리로 신경망이 논리 규칙을 위반하지 못하게 만드는가"를 입력·출력부터 ReqL 계층의 클리핑 메커니즘, label ordering, saturation, 그리고 학습 관여 방식까지 한 겹씩 벗겨낸 기록에 가깝다.
 

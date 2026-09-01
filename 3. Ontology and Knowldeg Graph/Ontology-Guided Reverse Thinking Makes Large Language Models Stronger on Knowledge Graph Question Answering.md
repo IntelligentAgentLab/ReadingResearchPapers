@@ -1,9 +1,18 @@
+---
+title: Ontology-Guided Reverse Thinking Makes Large Language Models Stronger on Knowledge Graph Question Answering
+annotation: 목적에서 조건으로 거꾸로 걸어 KGQA의 탐색 경로를 좁히기
+journal: ACL
+publishYear: "2025"
+authors: Runxuan Liu, Bei Luo, Jiaqi Li, Baoxin Wang, Ming Liu, Dayong Wu, Shijin Wang, Bing Qin
+tags:
+  - knowledge_graph_question_answering
+  - ontology
+  - reverse_thinking
+  - large_language_model
+  - path_retrieval
+  - multi_hop_reasoning
+---
 # 목적에서 조건으로 거꾸로 걷기 — ORT 논문 읽기
-
-> **Ontology-Guided Reverse Thinking Makes Large Language Models Stronger on Knowledge Graph Question Answering**
-> Runxuan Liu, Bei Luo, Jiaqi Li, Baoxin Wang, Ming Liu, Dayong Wu, Shijin Wang, Bing Qin
-> ACL 2025 (Volume 1: Long Papers), pp. 15269–15284
-> Harbin Institute of Technology · Beijing University of Posts and Telecommunications · Joint Laboratory of HIT and iFLYTEK 외
 
 ---
 

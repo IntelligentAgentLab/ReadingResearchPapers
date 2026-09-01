@@ -1,6 +1,18 @@
+---
+title: Learning Transferable Visual Models From Natural Language Supervision
+annotation: 이미지 분류를 캡션 맞히기 문제로 바꾸기
+journal: ICML
+publishYear: "2021"
+authors: Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever
+tags:
+  - contrastive_learning
+  - vision_language_model
+  - zero_shot_transfer
+  - natural_language_supervision
+  - image_text_pretraining
+  - prompt_engineering
+---
 # CLIP 읽기: 자연어 감독으로 전이 가능한 시각 모델 학습하기
-
-> Radford et al., *Learning Transferable Visual Models From Natural Language Supervision*, ICML 2021 (OpenAI)
 
 ## 1. 이 논문이 풀려는 문제
 

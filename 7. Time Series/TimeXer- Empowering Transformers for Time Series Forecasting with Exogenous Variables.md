@@ -1,7 +1,18 @@
-
+---
+title: "TimeXer: Empowering Transformers for Time Series Forecasting with Exogenous Variables"
+annotation: 구조를 바꾸지 않고 외생 변수를 Transformer에 들이기
+journal: NeurIPS
+publishYear: "2024"
+authors: Yuxuan Wang, Haixu Wu, Jiaxiang Dong, Guo Qin, Haoran Zhang, Yong Liu, Yunzhong Qiu, Jianmin Wang, Mingsheng Long
+tags:
+  - time_series_forecasting
+  - exogenous_variables
+  - transformer
+  - patch_embedding
+  - cross_attention
+  - global_token
+---
 # TimeXer: 외생 변수를 품은 시계열 예측 Transformer
-
-*NeurIPS 2024, Tsinghua University — "TimeXer: Empowering Transformers for Time Series Forecasting with Exogenous Variables"*
 
 ## 1. 들어가며: 왜 외생 변수(Exogenous Variables)인가
 

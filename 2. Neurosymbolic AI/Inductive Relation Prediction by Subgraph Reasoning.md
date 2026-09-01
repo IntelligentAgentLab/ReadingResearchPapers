@@ -1,6 +1,18 @@
+---
+title: Inductive Relation Prediction by Subgraph Reasoning
+annotation: 노드 임베딩 없이 주변 서브그래프만 보고 관계를 예측하기
+journal: ICML
+publishYear: "2020"
+authors: Komal K. Teru, Etienne Denis, William L. Hamilton
+tags:
+  - knowledge_graph
+  - inductive_relation_prediction
+  - subgraph_reasoning
+  - graph_neural_network
+  - node_labeling
+  - rule_induction
+---
 # 서브그래프 추론으로 관계를 예측하다 — GraIL 논문 읽기
-
-> Teru, Denis, Hamilton, *Inductive Relation Prediction by Subgraph Reasoning*, ICML 2020
 
 지식그래프(KG)에서 빠진 관계를 예측하는 문제를, "두 노드 주변의 국소 구조"만 보고 푸는 GNN 프레임워크 **GraIL(Graph Inductive Learning)** 을 소개한다. 이 글은 논문을 하나하나 따라 읽으면서, "그래서 이게 논리적 추론을 보장하는가?", "규칙을 배우려면 전체 그래프를 봐야 하는 것 아닌가?" 같은 물음을 함께 던지고 답을 찾아가는 방식으로 정리했다.
 

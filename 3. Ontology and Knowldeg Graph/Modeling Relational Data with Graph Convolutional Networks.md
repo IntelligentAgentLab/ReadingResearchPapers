@@ -1,6 +1,18 @@
+---
+title: Modeling Relational Data with Graph Convolutional Networks
+annotation: 관계마다 다른 가중치를 주어 지식 그래프를 학습하기
+journal: ESWC
+publishYear: "2018"
+authors: Michael Schlichtkrull, Thomas N. Kipf, Peter Bloem, Rianne van den Berg, Ivan Titov, Max Welling
+tags:
+  - knowledge_graph
+  - relational_gcn
+  - link_prediction
+  - entity_classification
+  - basis_decomposition
+  - distmult
+---
 # 지식 그래프를 위한 그래프 신경망: R-GCN 뜯어보기
-
-*Schlichtkrull et al., "Modeling Relational Data with Graph Convolutional Networks" (ESWC 2018) 리뷰*
 
 이 글은 R-GCN 논문을 GCN을 이미 이해한 상태에서 "그래프로부터 네트워크를 어떻게 구축하고 학습시키는가"에 초점을 맞춰 정리한 것이다. 특히 링크 예측 학습 과정은 작은 예제로 숫자까지 따라가며 살펴본다.
 

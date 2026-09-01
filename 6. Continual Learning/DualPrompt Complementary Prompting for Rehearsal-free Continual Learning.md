@@ -1,7 +1,18 @@
+---
+title: "DualPrompt: Complementary Prompting for Rehearsal-free Continual Learning"
+annotation: 공통 지식과 태스크 지식을 두 종류의 프롬프트로 나누기
+journal: ECCV
+publishYear: "2022"
+authors: Zifeng Wang, Zizhao Zhang, Sayna Ebrahimi, Ruoxi Sun, Han Zhang, Chen-Yu Lee, Xiaoqi Ren, Guolong Su, Vincent Perot, Jennifer Dy, Tomas Pfister
+tags:
+  - continual_learning
+  - prompt_tuning
+  - rehearsal_free
+  - general_prompt
+  - expert_prompt
+  - vision_transformer
+---
 # DualPrompt: 버퍼 없이 망각을 막는 연속학습 — 두 종류의 프롬프트 이야기
-
-> Zifeng Wang, Zizhao Zhang, Sayna Ebrahimi et al. (ECCV 2022, Google Cloud AI + Northeastern University)
-> "DualPrompt: Complementary Prompting for Rehearsal-free Continual Learning"
 
 이 글은 DualPrompt 논문을 함께 읽으며 나눈 대화를 정리한 것이다. 핵심 아이디어부터 시작해서, G-Prompt와 E-Prompt가 각각 어떤 지식을 담는지, 학습이 실제로 어떻게 진행되는지, 프롬프트를 백본의 어느 층에 어떻게 붙이는지, 그리고 실험 결과가 무엇을 말하는지 순서대로 풀어본다.
 

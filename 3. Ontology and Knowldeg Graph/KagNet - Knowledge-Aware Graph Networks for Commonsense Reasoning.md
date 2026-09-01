@@ -1,6 +1,18 @@
+---
+title: "KagNet: Knowledge-Aware Graph Networks for Commonsense Reasoning"
+annotation: 상식 추론의 근거를 지식그래프 경로로 드러내기
+journal: EMNLP-IJCNLP
+publishYear: "2019"
+authors: Bill Yuchen Lin, Xinyue Chen, Jamin Chen, Xiang Ren
+tags:
+  - commonsense_reasoning
+  - knowledge_graph
+  - conceptnet
+  - graph_convolutional_network
+  - hierarchical_attention
+  - interpretability
+---
 # KagNet: 외부 지식그래프로 상식 추론을 풀고, 그 근거까지 보여주기
-
-> Bill Yuchen Lin, Xinyue Chen, Jamin Chen, Xiang Ren — *Knowledge-Aware Graph Networks for Commonsense Reasoning*, EMNLP-IJCNLP 2019 (USC INK Lab)
 
 한 줄로 요약하면, KagNet은 외부 상식 지식그래프(ConceptNet)를 활용해 상식 추론 문제(질문-답변)를 풀고, 그 과정을 **해석 가능하게** 만드는 프레임워크입니다. 이 글은 논문의 문제의식에서 출발해 핵심인 GCN-LSTM-HPA 아키텍처를 수식과 함께 뜯어보고, 모델의 입출력 구조와 학습 방식, 어텐션 기반 해석, 그리고 이 접근이 지금의 LLM 시대에서 어떤 의미를 갖는지까지 정리한다.
 

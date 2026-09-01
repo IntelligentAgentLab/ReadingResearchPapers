@@ -1,6 +1,18 @@
+---
+title: "Construct, Align, and Reason: Large Ontology Models for Enterprise Knowledge Management"
+annotation: 온톨로지를 LLM에 하나의 모달리티로 붙이기
+journal: Arxiv
+publishYear: "2026"
+authors: Yao Zhang, Hongyin Zhu
+tags:
+  - ontology
+  - large_language_model
+  - enterprise_knowledge_management
+  - graph_encoder
+  - modality_alignment
+  - knowledge_injection
+---
 # 온톨로지를 LLM에 "모달리티"로 붙이기: Large Ontology Model 읽기
-
-> Yao Zhang, Hongyin Zhu. *Construct, Align, and Reason: Large Ontology Models for Enterprise Knowledge Management.* Yonyou AI Lab, arXiv:2602.00029, 2026.
 
 이 글은 논문을 읽으며 오간 질문들을 그대로 따라간다. "이건 결국 RAG 아닌가", "그래프를 매번 통째로 넣는다고?", "prefix tuning이랑 뭐가 다르지" 같은 의문이 이 논문의 설계를 이해하는 가장 좋은 경로였기 때문이다.
 
@@ -136,7 +148,7 @@ $\mathcal{G}_U$는 별도 파이프라인으로 만든다. 문서 파싱 → 트
 - projector가 **linear** 하나다. LLaVA 계열이 그렇듯 각 토큰을 독립적으로 매핑할 뿐 개수를 줄이지 않는다.
 - intra-type 정렬이 "그래프 토큰 **시퀀스**에 대해 올바른 텍스트 **시퀀스**를 출력"하도록 학습한다. 데이터셋 정의도 $(\mathbf{e}_k, s_i)$ 쌍의 리스트와 $(\mathbf{c}_k, \mathbf{c}_{s_i})$ 쌍의 리스트를 짝지은 형태다. 개별 토큰이 개별 설명에 대응한다는 뜻이다.
 
-벤치마크 그래프가 노드 5~50개니 그래프 토큰도 5~50개 수준이다. 컨텍스트 부담이 거의 없다.
+벤치마크 그래프가 노드 5\~50개니 그래프 토큰도 5\~50개 수준이다. 컨텍스트 부담이 거의 없다.
 
 ### 6) 인코더 설계에서 걸리는 점
 

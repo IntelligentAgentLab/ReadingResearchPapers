@@ -1,6 +1,19 @@
+---
+title: Semantic Probabilistic Layers for Neuro-Symbolic Learning
+annotation: 제약을 어기는 출력을 애초에 낼 수 없는 층 만들기
+journal: NeurIPS
+publishYear: "2022"
+authors: Kareem Ahmed, Stefano Teso, Kai-Wei Chang, Guy Van den Broeck, Antonio Vergari
+tags:
+  - neurosymbolic
+  - probabilistic_circuit
+  - structured_output_prediction
+  - logical_constraint
+  - knowledge_compilation
+  - tractable_inference
+---
 # 논리 제약을 100% 보장하는 예측 레이어: Semantic Probabilistic Layers for Neuro-Symbolic Learning
 
-> Ahmed, Teso, Chang, Van den Broeck, Vergari — *NeurIPS 2022*
 > 코드: [github.com/KareemYousrii/SPL](https://github.com/KareemYousrii/SPL)
 
 이 글은 "Semantic Probabilistic Layers for Neuro-Symbolic Learning" 논문을 읽으며 나눈 대화를 정리한 것이다. 단순한 요약이 아니라, 이 모델이 **왜 이렇게 설계되었는지**를 명제 논리 예시로 끝까지 따라가며 이해하는 데 초점을 맞췄다.

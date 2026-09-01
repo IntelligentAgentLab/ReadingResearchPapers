@@ -1,6 +1,18 @@
+---
+title: A Semantic Loss Function for Deep Learning with Symbolic Knowledge
+annotation: 논리 제약이 만족될 확률을 그대로 손실로 삼기
+journal: ICML
+publishYear: "2018"
+authors: Jingyi Xu, Zilu Zhang, Tal Friedman, Yitao Liang, Guy Van den Broeck
+tags:
+  - neurosymbolic
+  - semantic_loss
+  - knowledge_compilation
+  - weighted_model_counting
+  - semi_supervised_learning
+  - propositional_logic
+---
 # 신경망에 논리를 붙이는 법: A Semantic Loss Function for Deep Learning with Symbolic Knowledge 읽기
-
-> Xu, Zhang, Friedman, Liang, Van den Broeck. *ICML 2018.*
 
 이 글은 이 논문을 처음부터 끝까지 훑는 요약이 아니라, "가장 단순한 예에서 출발해 하나씩 질문을 던지며" 논문을 이해해 나간 기록이다. exactly-one 제약의 숫자 계산에서 시작해서, 소프트맥스와 과잉 확신, 명제적 지식으로서의 논리 제약, knowledge compilation, 논리추론과의 관계, 준지도학습, 그리고 논문의 진짜 목적인 복잡한 구조적 제약 실험까지, 실제로 궁금했던 순서를 따라간다.
 

@@ -1,6 +1,18 @@
+---
+title: Overcoming catastrophic forgetting in neural networks
+annotation: 피셔 정보로 중요한 가중치를 붙들어 매기
+journal: PNAS
+publishYear: "2017"
+authors: James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume Desjardins, Andrei A. Rusu, Kieran Milan, John Quan, Tiago Ramalho, Agnieszka Grabska-Barwinska, Demis Hassabis, Claudia Clopath, Dharshan Kumaran, Raia Hadsell
+tags:
+  - continual_learning
+  - elastic_weight_consolidation
+  - fisher_information
+  - catastrophic_forgetting
+  - laplace_approximation
+  - bayesian_posterior
+---
 # 파국적 망각을 넘어서: EWC 논문 읽기
-
-> Kirkpatrick, J. et al. (2017). **Overcoming catastrophic forgetting in neural networks.** *PNAS* 114(13), 3521–3526. DeepMind & Imperial College London.
 
 이 글은 EWC(Elastic Weight Consolidation) 논문을 읽으면서 특히 **"어떤 가중치가 중요한지를 어떻게 정의하고 계산하는가"** 를 집요하게 파고든 내용을 정리한 것이다. 논문의 전체 구성을 훑되, 피셔 정보 행렬이 왜 중요도가 되는지, 그걸 왜 1차 미분의 제곱으로 계산하는지, 최적점에서는 미분값이 0인데 어떻게 0이 아닌 값이 나오는지 같은 지점에 대부분의 지면을 할애했다.
 

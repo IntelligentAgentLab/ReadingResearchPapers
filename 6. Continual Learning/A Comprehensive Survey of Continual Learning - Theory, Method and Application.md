@@ -1,7 +1,21 @@
-
+---
+title: "A Comprehensive Survey of Continual Learning: Theory, Method and Application"
+annotation: 지속학습의 이론·방법·응용을 한 장의 지도로 펼치기
+journal: TPAMI
+publishYear: "2024"
+authors: Liyuan Wang, Xingxing Zhang, Hang Su, Jun Zhu
+tags:
+  - continual_learning
+  - catastrophic_forgetting
+  - survey
+  - regularization_based_method
+  - replay_based_method
+  - stability_plasticity
+---
+# 새로 배우면서 잊지 않기 — A Comprehensive Survey of Continual Learning: Theory, Method and Application
 
 > **AI는 새로운 지식을 배우면서 과거의 지식을 어떻게 잊지 않을 수 있을까?**  
-> Liyuan Wang, Xingxing Zhang, Hang Su, Jun Zhu의 서베이 논문을 바탕으로 지속학습의 개념, 평가 지표, 정규화 기반 접근법, 리플레이 기반 접근법을 정리했다.
+> 지속학습의 개념, 평가 지표, 정규화 기반 접근법, 리플레이 기반 접근법을 정리했다.
 
 ---
 

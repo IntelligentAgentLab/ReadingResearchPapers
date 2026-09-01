@@ -1,7 +1,19 @@
+---
+title: Learning to Prompt for Continual Learning
+annotation: 백본을 얼려둔 채 프롬프트 풀만 배워 망각을 막기
+journal: CVPR
+publishYear: "2022"
+authors: Zifeng Wang, Zizhao Zhang, Chen-Yu Lee, Han Zhang, Ruoxi Sun, Xiaoqi Ren, Guolong Su, Vincent Perot, Jennifer Dy, Tomas Pfister
+tags:
+  - continual_learning
+  - prompt_tuning
+  - rehearsal_free
+  - prompt_pool
+  - key_query_matching
+  - vision_transformer
+---
 # Learning to Prompt for Continual Learning (L2P) 읽기
 
-> Zifeng Wang, Zizhao Zhang, Chen-Yu Lee, Han Zhang, Ruoxi Sun, Xiaoqi Ren, Guolong Su, Vincent Perot, Jennifer Dy, Tomas Pfister
-> Northeastern University · Google Cloud AI · Google Research — CVPR 2022
 > [arXiv:2112.08654](https://arxiv.org/abs/2112.08654) · [코드](https://github.com/google-research/l2p)
 
 NLP의 prompt tuning을 continual learning으로 처음 가져온 논문이다. 사전학습 모델을 완전히 얼려둔 채, 백본 대비 0.05~0.11%에 불과한 프롬프트 파라미터만 학습해서 rehearsal buffer를 쓰는 SOTA를 이긴다. 이 글은 논문의 구조를 따라가되, 특히 **query mechanism이 왜 작동하는가**와 **frozen 백본이 어디까지 버티는가**에 무게를 둔다.

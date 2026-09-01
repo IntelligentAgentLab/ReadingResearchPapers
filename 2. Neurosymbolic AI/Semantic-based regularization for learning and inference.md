@@ -1,7 +1,18 @@
+---
+title: Semantic-based regularization for learning and inference
+annotation: 1차 논리 지식을 미분 가능한 정규화 항으로 바꾸기
+journal: Artificial Intelligence
+publishYear: "2017"
+authors: Michelangelo Diligenti, Marco Gori, Claudio Saccà
+tags:
+  - neurosymbolic
+  - semantic_based_regularization
+  - fuzzy_logic
+  - kernel_machine
+  - collective_classification
+  - constrained_optimization
+---
 # Semantic-based Regularization for Learning and Inference
-
-> Michelangelo Diligenti, Marco Gori, Claudio Saccà, *Artificial Intelligence* 244 (2017), 143-165  
-> 지금까지의 대화를 바탕으로 정리한 한국어 해설
 
 이 논문의 핵심은 **데이터로부터의 학습과 논리적 추론을 하나의 최적화 문제로 통합**하는 것이다. 저자들은 이를 **Semantic-Based Regularization(SBR)** 이라고 부른다.
 

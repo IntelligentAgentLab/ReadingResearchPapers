@@ -1,7 +1,18 @@
+---
+title: "LightRAG: Simple and Fast Retrieval-Augmented Generation"
+annotation: 커뮤니티 요약 없이 이중 수준 검색으로 GraphRAG를 이기기
+journal: EMNLP Findings
+publishYear: "2025"
+authors: Zirui Guo, Lianghao Xia, Yanhua Yu, Tu Ao, Chao Huang
+tags:
+  - retrieval_augmented_generation
+  - knowledge_graph
+  - dual_level_retrieval
+  - graph_indexing
+  - incremental_update
+  - entity_relation_extraction
+---
 # LightRAG는 왜 "커뮤니티"를 만들지 않고도 GraphRAG를 이기는가
-
-> 논문: *LightRAG: Simple and Fast Retrieval-Augmented Generation* (Zirui Guo, Lianghao Xia 외, HKU, EMNLP 2025 Findings)
-> 코드: github.com/HKUDS/LightRAG
 
 이 글은 LightRAG 논문을 처음부터 순서대로 요약한 글이 아니다. 논문을 함께 읽으며 실제로 오갔던 질문들 — "GraphRAG와 가장 다른 점이 뭐야?", "그럼 GraphRAG는 왜 애초에 커뮤니티를 만들었지?", "1-hop 이웃 확장은 엔티티 중심이야?" — 을 따라가며, 그 질문들이 풀리는 순서대로 논문 내용을 재구성한 기록이다.
 

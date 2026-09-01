@@ -1,6 +1,18 @@
+---
+title: "SATNet: Bridging deep learning and logical reasoning using a differentiable satisfiability solver"
+annotation: MAXSAT 완화를 미분 가능한 층으로 만들어 신경망에 심기
+journal: ICML
+publishYear: "2019"
+authors: Po-Wei Wang, Priya L. Donti, Bryan Wilder, Zico Kolter
+tags:
+  - neurosymbolic
+  - maxsat
+  - semidefinite_programming
+  - differentiable_solver
+  - visual_sudoku
+  - coordinate_descent
+---
 # SATNet: 딥러닝에 논리 추론을 심는 법
-
-> Po-Wei Wang, Priya L. Donti, Bryan Wilder, Zico Kolter — *SATNet: Bridging deep learning and logical reasoning using a differentiable satisfiability solver* (ICML 2019)
 
 이 논문은 여러 분야가 겹쳐 있어서 처음 읽으면 벽이 높게 느껴집니다. 딥러닝, 명제 논리, 조합 최적화, 반정부호 계획법(SDP)이 한 편 안에 다 들어 있거든요. 그래서 이 글은 각 조각을 초보자도 따라올 수 있게 하나씩 풀어놓고, 마지막에 다시 합치는 순서로 갑니다. 최적화를 전공하지 않았어도 끝까지 읽을 수 있도록 필요한 배경은 그때그때 채워 넣었습니다.
 
