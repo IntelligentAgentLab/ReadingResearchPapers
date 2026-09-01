@@ -4,7 +4,7 @@
 
 #### 기호논리 강의자료
 - [기호논리 기초](./0.%20Basics%20of%20AI/기호논리%20기초.md)
-- [Symbolic Logic](Symbolic%20Logic.md)
+- [Fundamentals of Symbolic Logic](./0.%20Basics%20of%20AI/Fundamentals%20of%20Symbolic%20Logic.md)
 #### AI 기초 자료
 - [Laplace approximation beginner guide](./0.%20Basics%20of%20AI/Laplace%20approximation%20beginner%20guide.md)
 	- 테일러 전개에서 Fisher 정보까지: 라플라스 근사를 이해하는 가장 쉬운 길
