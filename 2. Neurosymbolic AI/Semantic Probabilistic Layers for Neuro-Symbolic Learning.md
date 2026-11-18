@@ -16,7 +16,17 @@ tags:
 
 > 코드: [github.com/KareemYousrii/SPL](https://github.com/KareemYousrii/SPL)
 
-이 글은 "Semantic Probabilistic Layers for Neuro-Symbolic Learning" 논문을 읽으며 나눈 대화를 정리한 것이다. 단순한 요약이 아니라, 이 모델이 **왜 이렇게 설계되었는지**를 명제 논리 예시로 끝까지 따라가며 이해하는 데 초점을 맞췄다.
+#### Abstract
+
+우리는 임의의 신경망에 결합할 수 있으며, 예측 결과가 사전에 정의된 기호적 제약 조건과 일치하도록 보장하는 구조화 출력 예측(structured-output prediction, SOP)용 예측 계층을 설계한다.
+
+우리가 제안하는 의미 확률 계층(Semantic Probabilistic Layer, SPL)은 구조화된 출력 공간에서 복잡한 상관관계와 엄격한 제약 조건을 모델링하면서도, 최대우도법을 통해 종단 간 학습이 가능하다. SPL은 정확한 확률적 추론과 논리적 추론을 깔끔하고 모듈화된 방식으로 결합한다. 이를 통해 복잡한 분포를 학습하고 그 분포의 지지집합을 제약 조건을 만족하는 해로 제한한다.
+
+따라서 SPL은 기존 신경-기호 접근법으로 다루기 어려운 복잡한 SOP 과제도 충실하고 효율적으로 모델링할 수 있다. 실험 결과, SPL은 완벽한 제약 조건 만족을 유지하면서 계층적 다중 레이블 분류, 경로 탐색, 선호도 학습 등의 까다로운 SOP 과제에서 기존 경쟁 방법보다 높은 정확도를 달성했다. 소스 코드는 [GitHub 저장소](https://github.com/KareemYousrii/SPL)에서 공개되어 있다.
+
+#### 블로그 요약
+
+이 글은 "Semantic Probabilistic Layers for Neuro-Symbolic Learning" 논문의 모델이 **왜 이렇게 설계되었는지**를 명제 논리 예시로 끝까지 따라가며 이해하는 데 초점을 맞췄다.
 
 ---
 
